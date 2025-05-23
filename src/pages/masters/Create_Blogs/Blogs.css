@@ -1,0 +1,47 @@
+form {
+    padding: 2% 3% 2% 3%;
+    border-radius: 8px;
+    box-shadow: 0 0 15px 0 #0006;
+}
+
+/* Estilos de etiqueta flotante de Uiverse.io */
+.inputGroup {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 1em 0;
+    max-width: 100%;
+    position: relative;
+}
+
+.inputGroup input {
+    font-size: 1rem;
+    padding: 0.8em;
+    border: 2px solid rgb(200, 200, 200);
+    background-color: transparent;
+    border-radius: 5px;
+    width: 100%;
+    height: 40px;
+    outline: none;
+}
+
+.inputGroup label {
+    font-size: 1rem;
+    position: absolute;
+    left: 0;
+    padding: 0.4em;
+    margin-left: 0.5em;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    color: rgb(100, 100, 100);
+}
+
+.inputGroup :is(input:focus, input:valid) ~ label {
+    transform: translateY(-50%) scale(0.9);
+    margin: 0;
+    margin-left: 1.3em;
+    padding: 0.3em;
+    background-color: #fff;
+}
+
+.inputGroup :is(input:focus, input:valid) {
+    border-color: #0c54c07b;
+}

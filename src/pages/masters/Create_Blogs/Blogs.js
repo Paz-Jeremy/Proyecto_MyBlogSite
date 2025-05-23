@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './Blogs.css'
 
 function Blogs() {
     const [editIndex, setEditIndex] = useState(null);
@@ -33,19 +34,31 @@ function Blogs() {
         setForm({ title: '', author: '', description: '', publishDate: '' });
     }
 
+// Campos que queremos renderizar
+    const fields = [
+        { name: 'title', label: 'Título', type: 'text' },
+        { name: 'author', label: 'Autor', type: 'text' },
+        { name: 'description', label: 'Descripción', type: 'text' },
+        { name: 'publishDate', label: 'Fecha de Publicación', type: 'text' }
+    ];
+
     return (
-        <div style={{padding: '20px'}}>
+        <div style={{padding: '20px 40px 20px 40px'}}>
             <h2>Gestión de Blogs</h2>
             <form onSubmit={handleOnSubmit} className="mb-4">
-                {['title', 'author', 'description', 'publishDate'].map((field) => (
-                    <input
-                        key={field}
-                        name={field}
-                        value={form[field]}
+                {fields.map(({ name, label, type }) => (
+                    <div className="inputGroup" key={name}>
+                        <input
+                        id={name}
+                        name={name}
+                        type={type}
+                        value={form[name]}
                         onChange={handleOnChangeInputs}
-                        placeholder={field}
-                        className="form-control mb-2"
-                    />
+                        required
+                        autoComplete="off"
+                        />
+                        <label htmlFor={name}>{label}</label>
+                    </div>
                 ))}
                 <button className="btn btn-primary">
                     {editIndex !== null ? 'Actualizar' : 'Agregar'}
