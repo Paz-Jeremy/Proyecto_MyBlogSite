@@ -1,21 +1,16 @@
-import { useQuill } from "react-quilljs";
-import 'quill/dist/quill.snow.css'
-import toolbar from "./toolbar";
-
-
 import { useState } from "react";
+import React, { useRef } from "react";
 import './Blogs.css'
 
+import SunEditor from "suneditor-react";
+import "suneditor/dist/css/suneditor.min.css"
+
 function Blogs() {
+    const editorRef = useRef(null);
+
     const [editIndex, setEditIndex] = useState(null);
     const [blogs, setBlogs] = useState([]);
     const [form, setForm] = useState({ title: '', author: '', description: '', publishDate: '' });
-
-    // Editor de texto
-    const {quill, quillRef} = useQuill({
-        modules: {
-        toolbar: toolbar
-    }})
 
     const handleOnChangeInputs = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -73,15 +68,88 @@ function Blogs() {
                 ))}
 
                 {/* Editor de texto */}
-                <div className='contenedorEditor'>
-                    <div ref={quillRef} className='editor'>
-                    
-                    </div>
+                <div className="contenedorEditor">
+                    <SunEditor
+                        ref={editorRef}
+                        setOptions={{
+                        height: 300,
+                        buttonList: [
+                            // default
+                            ['undo', 'redo'],
+                            ['font', 'fontSize', 'formatBlock'],
+                            ['paragraphStyle', 'blockquote'],
+                            ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+                            ['fontColor', 'hiliteColor', 'textStyle'],
+                            ['removeFormat'],
+                            ['outdent', 'indent'],
+                            ['align', 'horizontalRule', 'list', 'lineHeight'],
+                            ['table', 'link', 'image', 'video'],
+                            ['fullScreen', 'showBlocks', 'codeView'],
+                            ['preview'],
+                            // responsive
+                            ['%1161', [
+                                ['undo', 'redo'],
+                                [':p-Formats-default.more_paragraph', 'font', 'fontSize', 'formatBlock', 'paragraphStyle', 'blockquote'],
+                                ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+                                ['fontColor', 'hiliteColor', 'textStyle'],
+                                ['removeFormat'],
+                                ['outdent', 'indent'],
+                                ['align', 'horizontalRule', 'list', 'lineHeight'],
+                                ['-right', ':i-Etc-default.more_vertical', 'fullScreen', 'showBlocks', 'codeView', 'preview'],
+                                ['-right', ':r-Table&Media-default.more_plus', 'table', 'link', 'image', 'video'],
+                            ]],
+                            ['%893', [
+                                ['undo', 'redo'],
+                                [':p-Formats-default.more_paragraph', 'font', 'fontSize', 'formatBlock', 'paragraphStyle', 'blockquote'],
+                                ['bold', 'underline', 'italic', 'strike'],
+                                [':t-Fonts-default.more_text', 'subscript', 'superscript', 'fontColor', 'hiliteColor', 'textStyle'],
+                                ['removeFormat'],
+                                ['outdent', 'indent'],
+                                ['align', 'horizontalRule', 'list', 'lineHeight'],
+                                ['-right', ':i-Etc-default.more_vertical', 'fullScreen', 'showBlocks', 'codeView', 'preview'],
+                                ['-right', ':r-Table&Media-default.more_plus', 'table', 'link', 'image', 'video'],
+                            ]],
+                            ['%855', [
+                                ['undo', 'redo'],
+                                [':p-Formats-default.more_paragraph', 'font', 'fontSize', 'formatBlock', 'paragraphStyle', 'blockquote'],
+                                [':t-Fonts-default.more_text', 'bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'fontColor', 'hiliteColor', 'textStyle'],
+                                ['removeFormat'],
+                                ['outdent', 'indent'],
+                                ['align', 'horizontalRule', 'list', 'lineHeight'],
+                                [':r-Table&Media-default.more_plus', 'table', 'link', 'image', 'video'],
+                                ['-right', ':i-Etc-default.more_vertical', 'fullScreen', 'showBlocks', 'codeView', 'preview'],
+                            ]],
+                            ['%563', [
+                                ['undo', 'redo'],
+                                [':p-Formats-default.more_paragraph', 'font', 'fontSize', 'formatBlock', 'paragraphStyle', 'blockquote'],
+                                [':t-Fonts-default.more_text', 'bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'fontColor', 'hiliteColor', 'textStyle'],
+                                ['removeFormat'],
+                                ['outdent', 'indent'],
+                                [':e-List&Line-default.more_horizontal', 'align', 'horizontalRule', 'list', 'lineHeight'],
+                                [':r-Table&Media-default.more_plus', 'table', 'link', 'image', 'video'],
+                                ['-right', ':i-Etc-default.more_vertical', 'fullScreen', 'showBlocks', 'codeView', 'preview'],
+                            ]],
+                            ['%458', [
+                                ['undo', 'redo'],
+                                [':p-Formats-default.more_paragraph', 'font', 'fontSize', 'formatBlock', 'paragraphStyle', 'blockquote'],
+                                [':t-Fonts-default.more_text', 'bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'fontColor', 'hiliteColor', 'textStyle', 'removeFormat'],
+                                [':e-List&Line-default.more_horizontal', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'lineHeight'],
+                                [':r-Table&Media-default.more_plus', 'table', 'link', 'image', 'video'],
+                                ['-right', ':i-Etc-default.more_vertical', 'fullScreen', 'showBlocks', 'codeView', 'preview'],
+                            ]]
+                        ],
+                        placeholder: "Comienza a escribir tu blog...",
+                        charCounter: true,
+                        }}
+                        defaultValue=""
+                    />
                 </div>
 
-                <button className="btn btn-primary">
-                    {editIndex !== null ? 'Actualizar' : 'Agregar'}
-                </button>
+                <div className="d-grid gap-2 col-4 mx-auto">
+                    <button className="btn btn-primary">
+                        {editIndex !== null ? 'Actualizar' : 'Agregar'}
+                    </button>
+                </div>
             </form>
 
             <table className="table">
