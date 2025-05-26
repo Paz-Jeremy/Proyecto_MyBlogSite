@@ -45,3 +45,11 @@ form {
 .inputGroup :is(input:focus, input:valid) {
     border-color: #0c54c07b;
 }
+
+.contenedorEditor{
+    margin:  20px 0;
+}
+
+.editor{
+    min-height: 200px;
+}

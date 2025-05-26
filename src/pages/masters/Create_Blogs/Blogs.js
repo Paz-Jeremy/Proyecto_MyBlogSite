@@ -1,3 +1,8 @@
+import { useQuill } from "react-quilljs";
+import 'quill/dist/quill.snow.css'
+import toolbar from "./toolbar";
+
+
 import { useState } from "react";
 import './Blogs.css'
 
@@ -5,6 +10,12 @@ function Blogs() {
     const [editIndex, setEditIndex] = useState(null);
     const [blogs, setBlogs] = useState([]);
     const [form, setForm] = useState({ title: '', author: '', description: '', publishDate: '' });
+
+    // Editor de texto
+    const {quill, quillRef} = useQuill({
+        modules: {
+        toolbar: toolbar
+    }})
 
     const handleOnChangeInputs = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -60,6 +71,14 @@ function Blogs() {
                         <label htmlFor={name}>{label}</label>
                     </div>
                 ))}
+
+                {/* Editor de texto */}
+                <div className='contenedorEditor'>
+                    <div ref={quillRef} className='editor'>
+                    
+                    </div>
+                </div>
+
                 <button className="btn btn-primary">
                     {editIndex !== null ? 'Actualizar' : 'Agregar'}
                 </button>
