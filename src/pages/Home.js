@@ -10,7 +10,7 @@ function Home() {
     ];
       return (
         <div className="container mt-4">
-          <h2>Blogs Disponibles</h2>
+          <h2 style={{paddingBottom: '20px', fontWeight: 'bold'}}>Blogs Disponibles</h2>
           <div className="row">
             {Blogs.map((Blogs, idx) => (
               <div className="col-md-4 mb-4" key={idx}>

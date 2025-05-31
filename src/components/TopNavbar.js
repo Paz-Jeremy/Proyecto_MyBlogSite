@@ -24,7 +24,7 @@ function TopNavbar() {
                     <li className="nav-item">
                         <button
                             className="nav-link"
-                            onClick={() => navigate('/home')}
+                            onClick={() => navigate('/')}
                             style={{ transition: 'font-size 0.1s ease' }}
                             onMouseEnter={(e) => e.target.style.fontSize = '1.20rem'} // tamaño más grande
                             onMouseLeave={(e) => e.target.style.fontSize = '1rem'} // tamaño normal
@@ -33,37 +33,26 @@ function TopNavbar() {
                         </button>
                     </li>
                     <li className="nav-item">
-                        <a
+                        <button
                             className="nav-link"
-                            href="#"
+                            onClick={() => navigate('/about')}
                             style={{ transition: 'font-size 0.1s ease' }}
                             onMouseEnter={(e) => e.target.style.fontSize = '1.15rem'}
                             onMouseLeave={(e) => e.target.style.fontSize = '1rem'}
                         >
                             Acerca de
-                        </a>
+                        </button>
                     </li>
                     <li className="nav-item">
-                        <a
+                        <button
                             className="nav-link"
-                            href="#"
-                            style={{ transition: 'font-size 0.1s ease' }}
-                            onMouseEnter={(e) => e.target.style.fontSize = '1.15rem'}
-                            onMouseLeave={(e) => e.target.style.fontSize = '1rem'}
-                        >
-                            Juegos
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <a
-                            className="nav-link"
-                            href="#"
+                            onClick={() => navigate('/contacts')}
                             style={{ transition: 'font-size 0.1s ease' }}
                             onMouseEnter={(e) => e.target.style.fontSize = '1.15rem'}
                             onMouseLeave={(e) => e.target.style.fontSize = '1rem'}
                         >
                             Contactos
-                        </a>
+                        </button>
                     </li>
                 </ul>
 

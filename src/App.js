@@ -4,7 +4,8 @@ import TopNavbar from './components/TopNavbar';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Blogs from './pages/masters/Create_Blogs/Blogs';
-import Footer from './pages/Footer.js'
+import Footer from './components/Footer.js'
+import About from './pages/page_About/About.js';
 
 function App() {
     const [items, setItems] = useState([{
@@ -22,8 +23,9 @@ function App() {
                                 padding: '0px'
                             }}>
                                 <Routes>
-                                    <Route path="/home" element={<Home />} />
+                                    <Route path="/*" element={<Home />} />
                                     <Route path="/blogs" element={<Blogs />} />
+                                    <Route path="/about" element={<About />} />
                                 </Routes>
                             </div>
                         <Footer />

@@ -38,7 +38,7 @@ form {
     transform: translateY(-50%) scale(0.9);
     margin: 0;
     margin-left: 1.3em;
-    padding: 0.3em;
+    padding: 0.1em;
     background-color: #fff;
 }
 
@@ -48,4 +48,16 @@ form {
 
 .contenedorEditor{
     margin:  20px 0;
+}
+
+.inputGroup input[type="date"] + label {
+    transform: translateY(-50%) scale(0.9);
+    margin: 0;
+    margin-left: 1.3em;
+    padding: 0.1em;
+    background-color: #fff;
+}
+
+h3{
+    font-weight: bold;
 }

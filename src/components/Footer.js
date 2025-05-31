@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import { FaGithub } from 'react-icons/fa';
 import { MdOutgoingMail } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
+import { useNavigate } from 'react-router-dom';
 
 function Footer() {
+    const navigate = useNavigate();
     const currentYear = new Date().getFullYear();
     return (
         <StyledFooter style={{ backgroundColor: '#031926' }}>
@@ -13,16 +15,16 @@ function Footer() {
             <small>Compartiendo historias inspiradoras cada día</small>
             <ul className="nav justify-content-center flex-wrap mt-3">
                 <li className="nav-item mx-3">
-                    <a href="#" className="nav-link text-light px-3">Blogs</a>
+                    <button onClick={() => navigate('/')} className="nav-link text-light px-3">Blogs</button>
                 </li>
                 <li className="nav-item mx-3">
-                    <a href="#" className="nav-link text-light px-3">Acerca de</a>
+                    <button onClick={() => navigate('/about')} className="nav-link text-light px-3">Acerca de</button>
                 </li>
                 <li className="nav-item mx-3">
-                    <a href="#" className="nav-link text-light px-3">Contactos</a>
+                    <button onClick={() => navigate('/contacts')} className="nav-link text-light px-3">Contactos</button>
                 </li>
                 <li className="nav-item mx-3">
-                    <a href="#" className="nav-link text-light px-3">Politica y Privacidad</a>
+                    <button onClick={() => navigate('/privacy')} className="nav-link text-light px-3">Política de privacidad</button>
                 </li>
             </ul>
         </div>

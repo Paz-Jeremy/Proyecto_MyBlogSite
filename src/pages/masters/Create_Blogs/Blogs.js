@@ -45,7 +45,7 @@ function Blogs() {
         { name: 'title', label: 'Título', type: 'text' },
         { name: 'author', label: 'Autor', type: 'text' },
         { name: 'description', label: 'Descripción', type: 'text' },
-        { name: 'publishDate', label: 'Fecha de Publicación', type: 'text' }
+        { name: 'publishDate', label: 'Fecha de Publicación', type: 'date' }
     ];
 
     return (
@@ -152,6 +152,8 @@ function Blogs() {
                 </div>
             </form>
 
+            <h3>Mis Blogs:</h3>
+            
             <table className="table">
                 <thead>
                     <tr>
