@@ -3,6 +3,12 @@ import { ImQuotesLeft } from "react-icons/im";
 import Card from "./Card";
 
 function About() {
+  const MVV = [
+    {title:'Misión', description:'Ser la plataforma líder que empodera a cada persona para compartir su voz y conectar con una comunidad global de creadores, fomentando la inspiración, el aprendizaje y la diversidad de historias.'},
+    {title:'Visión', description:'Ofrecer un espacio accesible e intuitivo donde cualquier usuario pueda crear, publicar y descubrir blogs, impulsando la creatividad con herramientas sencillas y un entorno colaborativo que conecta autores y lectores.'},
+    {title:'Valores', description:'Autenticidad, Accesibilidad, Comunidad, Innovación continua y Diversidad'},
+  ];
+
   return (
     <div>
       {/* Hero */}
@@ -26,13 +32,13 @@ function About() {
       </section>
 
       {/* Fundador */}
-      <section className="py-5">
+      <section className="py-5" style={{background: '#77ACA2'}}>
         <div className="container">
           <div className="row align-items-center">
             {/* Imagen del fundador */}
             <div className="col-md-4 mb-4 mb-md-0">
               <img
-                src="https://via.placeholder.com/400x400.png?text=Foto+Fundador"
+                src="https://assets.entrepreneur.com/content/3x2/2000/1736269735-meta-ceo-mark-zuckerberg--0125-g-2173579179.jpg"
                 alt="Foto del Fundador"
                 className="img-fluid rounded shadow-sm"
               />
@@ -101,18 +107,11 @@ function About() {
       >
         <div className="container">
           <div className="row justify-content-center">
-            {/* Card 1 */}
-            <div className="col-md-4 d-flex justify-content-center mb-4">
-              <Card />
-            </div>
-            {/* Card 2 */}
-            <div className="col-md-4 d-flex justify-content-center mb-4">
-              <Card />
-            </div>
-            {/* Card 3 */}
-            <div className="col-md-4 d-flex justify-content-center mb-4">
-              <Card />
-            </div>
+            {MVV.map((MVV, idx) => (
+              <div className="col-md-4 d-flex justify-content-center mb-4" key={idx}>
+                <Card {...MVV} />
+              </div>
+            ))}
           </div>
         </div>
       </section>

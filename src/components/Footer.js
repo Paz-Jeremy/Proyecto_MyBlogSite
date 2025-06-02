@@ -15,16 +15,48 @@ function Footer() {
             <small>Compartiendo historias inspiradoras cada día</small>
             <ul className="nav justify-content-center flex-wrap mt-3">
                 <li className="nav-item mx-3">
-                    <button onClick={() => navigate('/')} className="nav-link text-light px-3">Blogs</button>
+                  <button
+                    onClick={() => {
+                      navigate('/');
+                      window.scrollTo(0, 0);
+                    }}
+                    className="nav-link text-light px-3"
+                  >
+                    Blogs
+                  </button>
                 </li>
                 <li className="nav-item mx-3">
-                    <button onClick={() => navigate('/about')} className="nav-link text-light px-3">Acerca de</button>
+                  <button
+                    onClick={() => {
+                      navigate('/about');
+                      window.scrollTo(0, 0);
+                    }}
+                    className="nav-link text-light px-3"
+                  >
+                    Acerca de
+                  </button>
                 </li>
                 <li className="nav-item mx-3">
-                    <button onClick={() => navigate('/contacts')} className="nav-link text-light px-3">Contactos</button>
+                  <button
+                    onClick={() => {
+                      navigate('/contacts');
+                      window.scrollTo(0, 0);
+                    }}
+                    className="nav-link text-light px-3"
+                  >
+                    Contactos
+                  </button>
                 </li>
                 <li className="nav-item mx-3">
-                    <button onClick={() => navigate('/privacy')} className="nav-link text-light px-3">Política de privacidad</button>
+                  <button
+                    onClick={() => {
+                      navigate('/privacy');
+                      window.scrollTo(0, 0);
+                    }}
+                    className="nav-link text-light px-3"
+                  >
+                    Política de privacidad
+                  </button>
                 </li>
             </ul>
         </div>

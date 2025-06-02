@@ -1,21 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Card = () => {
+const Card = ({title, description}) => {
     return (
         <StyledWrapper>
         <div className="card-container">
             <div className="card">
                 <div className="front-content">
-                    <p>Hover me</p>
+                    <p>{title}</p>
                 </div>
                 <div className="content">
-                    <p className="heading">Card Hover</p>
+                    <p className="heading">{title}</p>
                     <p>
-                    Lorem ipsum dolor sit amet, consectetur adipii
-                    voluptas ten mollitia pariatur odit, ab
-                    minus ratione adipisci accusamus vel est excepturi laboriosam magnam
-                    necessitatibus dignissimos molestias.
+                        {description}
                     </p>
                 </div>
             </div>
@@ -32,12 +29,14 @@ const StyledWrapper = styled.div`
         border-radius: 10px;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         overflow: hidden;
+        
     }
 
     .card {
         width: 100%;
         height: 100%;
         border-radius: inherit;
+        background:rgba(248, 249, 250, 0.2);
     }
 
     .card .front-content {
@@ -53,7 +52,7 @@ const StyledWrapper = styled.div`
         font-size: 32px;
         font-weight: 700;
         opacity: 1;
-        background: linear-gradient(-45deg, #f89b29 0%, #ff0f7b 100% );
+        background: #FFF;
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -62,17 +61,17 @@ const StyledWrapper = styled.div`
 
     .card .content {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        top: -2px;
+        left: -2px;
+        width: 101%;
+        height: 101%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
         gap: 10px;
-        background: linear-gradient(-45deg, #f89b29 0%, #ff0f7b 100% );
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);;
         color: #e8e8e8;
         padding: 20px;
         line-height: 1.5;
