@@ -51,7 +51,7 @@ function Blogs() {
     return (
         <div style={{padding: '20px 40px 20px 40px'}}>
             <h2>Gestión de Blogs</h2>
-            <form onSubmit={handleOnSubmit} className="mb-4">
+            <form onSubmit={handleOnSubmit} className="mb-4 form-Blogs">
                 {fields.map(({ name, label, type }) => (
                     <div className="inputGroup" key={name}>
                         <input

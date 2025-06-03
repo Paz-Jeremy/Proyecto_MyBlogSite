@@ -7,16 +7,18 @@ function TopNavbar() {
     return (
     <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#031926' }}>
             <div className="container" style={{ width: '10%' }}>
-                <a className="navbar-brand" href="#">
-                    <img
-                    src="https://i.pinimg.com/1200x/8e/a6/02/8ea6024e4ce1dbaeb8629e4c12ee328b.jpg"
-                    alt="Logo MyBlogSite"
-                    width="50"
-                    height="40"
-                    />
-
-
-                </a>
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li className="nav-item">
+                        <button className="nav-link" href="#" onClick={() => navigate('/')}>
+                            <img
+                            src="https://i.pinimg.com/1200x/8e/a6/02/8ea6024e4ce1dbaeb8629e4c12ee328b.jpg"
+                            alt="Logo MyBlogSite"
+                            width="50"
+                            height="40"
+                            />
+                        </button>
+                    </li>
+                </ul>
             </div>
             <div className="container-fluid">
 

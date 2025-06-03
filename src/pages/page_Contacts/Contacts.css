@@ -1,0 +1,84 @@
+/* Contacts.css */
+
+/* h6: reducimos su margen inferior para que esté más cerca del acordeón */
+h6 {
+  padding-top: 30px;
+  letter-spacing: 2px;
+
+  /* Si originalmente tenías `mb-4`, podrías sobreescribirlo así: */
+  margin-bottom: 0.5rem; /* en lugar de 1.5rem (que sería mb-4) */
+}
+
+/* ————————————————————————————————————————————————————————————— */
+/* Quitar borde entre items del acordeón y poner mismo fondo que la sección */
+/* ————————————————————————————————————————————————————————————— */
+#faqAccordion .accordion-item {
+  border: none;
+  background-color: #eaf6ff;
+  margin: 0;
+  text-align: justify;
+}
+
+/* ————————————————————————————————————————————————————————————— */
+/* 1) ELIMINAR fondo, sombra y borde del botón del acordeón como antes */
+/* 2) FORZAR siempre el mismo color de texto (ejemplo: negro) sin importar */
+/*    si está collapsed, expanded, con hover o focus                     */
+/* ————————————————————————————————————————————————————————————— */
+#faqAccordion .accordion-button {
+  background-color: transparent; /* Sin color de fondo */
+  border: none;                  /* Sin borde */
+  box-shadow: none;              /* Sin sombra alrededor */
+  padding-left: 0;               /* Alinear texto a la izquierda */
+  font-weight: bold;
+
+  /* Forzamos un color constante. Cámbialo si quieres otro distinto: */
+  color: #000 !important;
+}
+
+/* Incluso cuando esté “collapsed” (cerrado), conservar color */
+#faqAccordion .accordion-button.collapsed {
+  background-color: transparent;
+  box-shadow: none;
+  color: #000 !important;
+}
+
+/* Cuando está abierto (no collapsed), mantener mismo color */
+#faqAccordion .accordion-button:not(.collapsed) {
+  background-color: transparent;
+  box-shadow: none;
+  color: #000 !important;
+}
+
+/* Al hacer foco, quitar outline y box-shadow, y mantener color */
+#faqAccordion .accordion-button:focus {
+  outline: none;
+  box-shadow: none;
+  color: #000 !important;
+}
+
+/* ————————————————————————————————————————————————————————————— */
+/* 3) QUITAR PADDING del contenido (accordion-body).                     */
+/*    Así no deja espacios internos en la respuesta.                    */
+/* ————————————————————————————————————————————————————————————— */
+#faqAccordion .accordion-body {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+}
+
+/* ————————————————————————————————————————————————————————————— */
+/* 4) ASEGURAR UNA TRANSICIÓN suave de “height” (y si quieres, de opacidad) */
+/*    para que al desplegar no sea de golpe sino con animación “slide”.     */
+/* ————————————————————————————————————————————————————————————— */
+#faqAccordion .accordion-collapse {
+  overflow: hidden;
+  transition: 
+    height 0.35s ease,  /* animación de altura */
+    opacity 0.25s ease; /* animación de opacidad */
+  opacity: 0;           /* cerrado = opacidad 0 */
+}
+
+/* Cuando esté “show” (abierto), que pase a opacidad 1 */
+#faqAccordion .accordion-collapse.show {
+  opacity: 1;
+}

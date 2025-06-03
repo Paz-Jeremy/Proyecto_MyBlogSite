@@ -7,6 +7,7 @@ import Blogs from './pages/masters/Create_Blogs/Blogs';
 import Footer from './components/Footer';
 import About from './pages/page_About/About';
 import Error404 from './pages/Error';
+import Contacts from './pages/page_Contacts/Contacts'
 import { Outlet } from 'react-router-dom';
 
 // Este componente Layout solo coloca Navbar arriba, <Outlet/> en medio y Footer al final
@@ -40,6 +41,9 @@ function App() {
                     
                     {/* Ruta de About (/about) */}
                     <Route path="/about" element={<About />} />
+
+                    {/* Ruta de Contacts (/contacts) */}
+                    <Route path="/contacts" element={<Contacts />} />
 
                     {/* Error 404: todo path que no haya matcheado arriba caerá aquí */}
                     <Route path="*" element={<Error404 />} />

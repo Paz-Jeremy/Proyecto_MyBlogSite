@@ -62,7 +62,7 @@ function About() {
       </section>
 
       {/* Historia */}
-      <section className="py-5 bg-light">
+      <section className="py-5 bg-light" style={{borderBottom: '7px solid #468189'}}>
         <div className="container">
           <h2 className="mb-4 text-center">Nuestra Historia</h2>
           <div className="row justify-content-center">

@@ -71,7 +71,7 @@ const StyledWrapper = styled.div`
         justify-content: center;
         text-align: center;
         gap: 10px;
-        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
         color: #e8e8e8;
         padding: 20px;
         line-height: 1.5;
