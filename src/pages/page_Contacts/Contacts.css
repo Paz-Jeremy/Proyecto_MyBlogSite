@@ -1,12 +1,8 @@
 /* Contacts.css */
 
-/* h6: reducimos su margen inferior para que esté más cerca del acordeón */
 h6 {
   padding-top: 30px;
   letter-spacing: 2px;
-
-  /* Si originalmente tenías `mb-4`, podrías sobreescribirlo así: */
-  margin-bottom: 0.5rem; /* en lugar de 1.5rem (que sería mb-4) */
 }
 
 /* ————————————————————————————————————————————————————————————— */
@@ -30,16 +26,12 @@ h6 {
   box-shadow: none;              /* Sin sombra alrededor */
   padding-left: 0;               /* Alinear texto a la izquierda */
   font-weight: bold;
-
-  /* Forzamos un color constante. Cámbialo si quieres otro distinto: */
-  color: #000 !important;
 }
 
 /* Incluso cuando esté “collapsed” (cerrado), conservar color */
 #faqAccordion .accordion-button.collapsed {
   background-color: transparent;
   box-shadow: none;
-  color: #000 !important;
 }
 
 /* Cuando está abierto (no collapsed), mantener mismo color */

@@ -1,4 +1,6 @@
 import "./Contacts.css";
+import { FaGithub } from "react-icons/fa";
+import { IoIosSettings, IoIosClock  } from "react-icons/io";
 
 function Contacts() {
 
@@ -20,7 +22,84 @@ function Contacts() {
                 <p className="fw-light">
                     Encuentra aquí toda nuestra información de contacto, incluyendo teléfono, correo electrónico y <br />horario de atención. Estamos aquí para ayudarte con cualquier consulta.
                 </p>
-                <hr className="border-light mx-auto w-25 border-3 .bg-dark" />
+                <hr className="border-light mx-auto w-25 border-3" />
+                </div>
+            </section>
+            
+            {/* Sección: Ubicación / Soporte / Horario */}
+            <section className="py-5" style={{ backgroundColor: "#458188", color: '#eaf6ff' }}>
+                <div className="container">
+                    <div className="row text-center">
+                        {/* Ubicación */}
+                        <div className="col-md-4 mb-4">
+                            <div className="d-flex flex-column align-items-center">
+                                <div
+                                    className="rounded-circle d-flex justify-content-center align-items-center mb-3"
+                                    style={{
+                                        width: "60px",
+                                        height: "60px",
+                                        backgroundColor: "#eaf6ff",
+                                        boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                                    }}
+                                >
+                                    <FaGithub size={28} color="#000" />
+                                </div>
+                                <h6 className="fw-bold">GITHUB</h6>
+                                <p className="mb-0">
+                                    <strong>Usuario:</strong> Paz-Jeremy
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Soporte */}
+                        <div className="col-md-4 mb-4">
+                            <div className="d-flex flex-column align-items-center">
+                                <div
+                                    className="rounded-circle d-flex justify-content-center align-items-center mb-3"
+                                    style={{
+                                        width: "60px",
+                                        height: "60px",
+                                        backgroundColor: "#eaf6ff",
+                                        boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                                    }}
+                                >
+                                    <IoIosSettings size={28} color="#000" />
+                                </div>
+                                <h6 className="fw-bold">SOPORTE</h6>
+                                <p className="mb-1">
+                                    <span className="fw-bold">Tel:</span> (+504) 9999-9999
+                                </p>
+                                <p className="mb-0">
+                                <span className="fw-bold">Email: </span>
+                                    jeremyjosecastellanos@gmail.com
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Horario */}
+                        <div className="col-md-4 mb-4">
+                            <div className="d-flex flex-column align-items-center">
+                                <div
+                                    className="rounded-circle d-flex justify-content-center align-items-center mb-3"
+                                    style={{
+                                        width: "60px",
+                                        height: "60px",
+                                        backgroundColor: "#eaf6ff",
+                                        boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                                    }}
+                                >
+                                    <IoIosClock size={28} color="#000" />
+                                </div>
+                                <h6 className="fw-bold">HORARIO</h6>
+                                <p className="mb-1">
+                                    <span className="fw-bold">Lunes a viernes:</span> 08:00 – 17:00
+                                </p>
+                                <p className="mb-0">
+                                    <span className="fw-bold">Sábados:</span> 08:00 – 13:30
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
             
@@ -33,7 +112,7 @@ function Contacts() {
                     <h3 className="mb-4">¿Tienes alguna pregunta?</h3>
                     <p>Contáctanos y con gusto resolveremos todas tus dudas.</p>
                     
-                    <h6 className="mb-4 fw-normal">PREGUNTAS FRECUENTES</h6>
+                    <h6 className="fw-normal">PREGUNTAS FRECUENTES</h6>
                     <div className="accordion" id="faqAccordion" >
                         {/* Pregunta 1 */}
                         <div className="accordion-item" >
