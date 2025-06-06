@@ -29,7 +29,18 @@ const StyledWrapper = styled.div`
         border-radius: 10px;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         overflow: hidden;
-        
+        margin: 0 auto; 
+    }
+
+    /* Cuando la pantalla sea menor a 768px (punto de quiebre “md” de Bootstrap),
+    eliminamos el max-width y dejamos que ocupe el 90% del ancho de la columna */
+    @media (max-width: 768px) {
+        .card-container {
+            max-width: none;
+            width: 245px;
+            height: 245px;
+            font-size: 0.8em;
+        }
     }
 
     .card {

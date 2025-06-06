@@ -13,13 +13,15 @@ const StyledCard = styled.div`
   }
 `;
 
-function CardItem({ title, author, image }) {
+function CardItem({ image, title, author, description, publishDate }) {
   return (
     <StyledCard className="card h-100">
       <img src={image} className="card-img-top" alt={title} />
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
-        <p className="card-text">Autor: {author}</p>
+        <p className="card-text"><b>Autor:</b> {author}</p>
+        <p className="card-text"><b>Descripción:</b> {description}</p>
+        <p className="card-text text-end fst-italic">{publishDate}</p>
       </div>
     </StyledCard>
   );

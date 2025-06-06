@@ -67,13 +67,12 @@ function About() {
           <h2 className="mb-4 text-center">Nuestra Historia</h2>
           <div className="row justify-content-center">
             <div className="col-lg-8">
-              <p>
+              <p style={{ textAlign: "justify" }}>
                 MyBlogSite nació en 2025 con la visión de crear una comunidad donde
                 las historias de cada persona tuvieran un espacio de expresión
                 auténtica. Comenzó como un proyecto personal del fundador, Para que
                 los usuarios puedan compartir sus ideas, experiencias y vivencias.
-              </p>
-              <p>
+                <br/><br/>
                 A lo largo de las últimas semanas, hemos añadido funcionalidades
                 que mejoran la experiencia de blogging: el enfoque principal fue
                 ofrecer una experiencia ágil para redactar y publicar entradas sin
@@ -82,8 +81,7 @@ function About() {
                 vida a sus relatos de forma atractiva. Además, se integró un
                 apartado de descubrimiento para que los usuarios pudieran explorar
                 las todas las publicaciones que los distintos usuarios del mundo.
-              </p>
-              <p>
+                <br/><br/>
                 Hoy, MyBlogSite continúa evolucionando con el mismo espíritu de
                 creatividad y conexión. Invitamos a todos a ser parte de esta
                 historia: crea tu blog, comparte tus pasiones y descubre las

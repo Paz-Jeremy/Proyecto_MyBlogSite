@@ -47,7 +47,7 @@ function Footer() {
                     Contactos
                   </button>
                 </li>
-                <li className="nav-item mx-3">
+                {/* <li className="nav-item mx-3">
                   <button
                     onClick={() => {
                       navigate('/privacy');
@@ -57,7 +57,7 @@ function Footer() {
                   >
                     Política de privacidad
                   </button>
-                </li>
+                </li> */}
             </ul>
         </div>
         <hr className="border-light" />
