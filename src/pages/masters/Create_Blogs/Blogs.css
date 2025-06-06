@@ -61,3 +61,42 @@
 h3{
     font-weight: bold;
 }
+
+/* Estilos para el contenedor del cargador de imagen */
+.contenedor-Upload {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5em;
+}
+
+/* Estilos para la etiqueta de texto */
+.label-img {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Estilos para el input de tipo file */
+.input-img {
+  padding: 0.5em;
+  border: 2px solid #bbb;
+  border-radius: 5px;
+  background-color: #fafafa;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Cambiar estilo al pasar el ratón */
+.input-img:hover {
+  border-color: #888;
+  background-color: #f0f0f0;
+}
+
+/* Cambiar estilo al enfocar (cuando se abre el diálogo de archivos) */
+.input-img:focus {
+  outline: none;
+  border-color: #0c54c07b;
+  background-color: #fff;
+}
+

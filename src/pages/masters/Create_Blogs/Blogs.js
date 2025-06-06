@@ -8,6 +8,7 @@ function Blogs() {
   const editorRef = useRef(null);
 
   const [form, setForm] = useState({
+    image: null,           // ← Nuevo campo para guardar la imagen
     title: "",
     author: "",
     description: "",
@@ -26,13 +27,24 @@ function Blogs() {
     }));
   };
 
+  // Manejador específico para el input de tipo file (imagen)
+  const handleOnImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setForm((prev) => ({
+        ...prev,
+        image: file
+      }));
+    }
+  };
+
   // Manejador “Editar” (cargar datos de un blog existente en el formulario)
   const handleOnEdit = (id) => {
     setForm(blogs[id]);
     setEditIndex(id);
   };
 
-  // Manejador “Eliminar” (borrar un blog de la lista)
+  // Manejador “Eliminar” (borra un blog de la lista)
   const handleOnDelete = (id) => {
     // Crea un nuevo array excluyendo el elemento cuya posición es id, filter recorre todo el array y mantiene todos los índices distintos de id.
     const updatedBlogs = blogs.filter((blog, index) => index !== id);
@@ -45,6 +57,7 @@ function Blogs() {
       setEditIndex(null);
       // Y limpio los campos
       setForm({
+        image: null,
         title: "",
         author: "",
         description: "",
@@ -58,19 +71,21 @@ function Blogs() {
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
-    if(editIndex !== null){
+    if (editIndex !== null) {
       // Modo “Actualizar”
       const updatedBlogs = [...blogs];
       updatedBlogs[editIndex] = form;
       setBlogs(updatedBlogs);
       setEditIndex(null);
-    }else{
+    } else {
       // Modo “Agregar”
       setBlogs([...blogs, form]);
       // console.log(form);
     }
-      
+
+    // Limpiar el formulario
     setForm({
+      image: null,
       title: "",
       author: "",
       description: "",
@@ -95,6 +110,19 @@ function Blogs() {
       <h2>Gestión de Blogs</h2>
 
       <form onSubmit={handleOnSubmit} className="mb-4 form-Blogs">
+        {/* --- INPUT DE IMAGEN --- */}
+        <div className="contenedor-Upload">
+          <label className="label-img">Imagen de portada: </label>
+          <input
+            className="input-img"
+            id="image"
+            name="image"
+            type="file"
+            accept="image/*"
+            onChange={handleOnImageChange}
+          />
+        </div>
+
         {fields.map(({ name, label, type }) => (
           <div className="inputGroup" key={name}>
             <input
@@ -200,40 +228,52 @@ function Blogs() {
 
       <h3>Mis Blogs:</h3>
       <table className="table">
-        <thead>
-          <tr>
-            <th>Título</th>
-            <th>Autor</th>
-            <th>Descripción</th>
-            <th>Fecha de Publicación</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {blogs.map((blog, id) => (
-            <tr key={id}>
-              <td>{blog.title}</td>
-              <td>{blog.author}</td>
-              <td>{blog.description}</td>
-              <td>{blog.publishDate}</td>
-              <td>
-                <button
-                  className="btn btn-sm btn-warning me-2"
-                  onClick={() => handleOnEdit(id)}
-                >
-                  Editar
-                </button>
-                <button
-                  className="btn btn-sm btn-danger"
-                  onClick={() => handleOnDelete(id)}
-                >
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+  <thead>
+    <tr>
+      <th>Imagen</th>
+      <th>Título</th>
+      <th>Autor</th>
+      <th>Descripción</th>
+      <th>Fecha de Publicación</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {blogs.map((blog, id) => (
+      <tr key={id}>
+        <td>
+          {blog.image ? (
+            <img
+              src={URL.createObjectURL(blog.image)}
+              alt={`Blog ${id}`}
+              style={{ width: "80px", height: "auto", objectFit: "cover" }}
+            />
+          ) : (
+            "–"
+          )}
+        </td>
+        <td>{blog.title}</td>
+        <td>{blog.author}</td>
+        <td>{blog.description}</td>
+        <td>{blog.publishDate}</td>
+        <td>
+          <button
+            className="btn btn-sm btn-warning me-2"
+            onClick={() => handleOnEdit(id)}
+          >
+            Editar
+          </button>
+          <button
+            className="btn btn-sm btn-danger"
+            onClick={() => handleOnDelete(id)}
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
     </div>
   );
 }
