@@ -73,9 +73,9 @@ function Blogs({ blogs, setBlogs }) {
 
     if (editIndex !== null) {
       // Modo “Actualizar”
-      const updatedBlogs = [...blogs];
-      updatedBlogs[editIndex] = form;
-      setBlogs(updatedBlogs);
+      const updatedBlogs = [...blogs]; // copia el array
+      updatedBlogs[editIndex] = form; // sustituye el elemento 
+      setBlogs(updatedBlogs); // y actualiza.
       setEditIndex(null);
     } else {
       // Modo “Agregar”
@@ -105,7 +105,7 @@ function Blogs({ blogs, setBlogs }) {
     { name: "publishDate", label: "Fecha de Publicación", type: "date" }
   ];
 
-  // Usamos la key solo basada en editIndex: no va ligada al contenido.
+  // Usamos la key solo basada en editIndex: no va ligada al contenido. fuerza a React a remontar el SunEditor cuando cambias de blog a editar, reiniciando su estado interno.
   const editorKey = editIndex !== null ? `edit-${editIndex}` : "new-editor";
 
   return (
@@ -141,12 +141,12 @@ function Blogs({ blogs, setBlogs }) {
           </div>
         ))}
 
-        {/* EDITOR RICH-TEXT */}
+        {/* SunEditor */}
         <div className="contenedorEditor">
           <SunEditor
             lang={es}
             key={editorKey}
-            // 1) Aquí recibimos la instancia core
+            // Aquí recibimos la instancia core (Es para obtener algunas funciones del editor)
             getSunEditorInstance={(core) => {
               editorRef.current = core;
             }}
