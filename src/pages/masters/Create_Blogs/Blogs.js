@@ -3,20 +3,20 @@ import "./Blogs.css";
 
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
+import es from "suneditor/src/lang/es";
 
-function Blogs() {
+
+function Blogs({ blogs, setBlogs }) {
   const editorRef = useRef(null);
-
   const [form, setForm] = useState({
-    image: null,           // ← Nuevo campo para guardar la imagen
+    image: null,
     title: "",
     author: "",
     description: "",
     editorContent: "",
     publishDate: ""
   });
-
-  const [blogs, setBlogs] = useState([]);
+  // Ahora ‘blogs’ y ‘setBlogs’ vienen de props, ya no los inicializamos aquí.
   const [editIndex, setEditIndex] = useState(null);
 
   // Inputs plano: title, author, description, publishDate
@@ -80,6 +80,9 @@ function Blogs() {
     } else {
       // Modo “Agregar”
       setBlogs([...blogs, form]);
+
+      // Función de la libreria de SunEditor, Basicamente la uso para vaciar el editor
+      editorRef.current.setContents("");
       // console.log(form);
     }
 
@@ -110,7 +113,7 @@ function Blogs() {
       <h2>Gestión de Blogs</h2>
 
       <form onSubmit={handleOnSubmit} className="mb-4 form-Blogs">
-        {/* --- INPUT DE IMAGEN --- */}
+        {/* --- INPUT para cargar la imagen --- */}
         <div className="contenedor-Upload">
           <label className="label-img">Imagen de portada: </label>
           <input
@@ -141,8 +144,12 @@ function Blogs() {
         {/* EDITOR RICH-TEXT */}
         <div className="contenedorEditor">
           <SunEditor
+            lang={es}
             key={editorKey}
-            ref={editorRef}
+            // 1) Aquí recibimos la instancia core
+            getSunEditorInstance={(core) => {
+              editorRef.current = core;
+            }}
             defaultValue={form.editorContent}
             setOptions={{
               height: 300,
@@ -228,52 +235,57 @@ function Blogs() {
 
       <h3>Mis Blogs:</h3>
       <table className="table">
-  <thead>
-    <tr>
-      <th>Imagen</th>
-      <th>Título</th>
-      <th>Autor</th>
-      <th>Descripción</th>
-      <th>Fecha de Publicación</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    {blogs.map((blog, id) => (
-      <tr key={id}>
-        <td>
-          {blog.image ? (
-            <img
-              src={URL.createObjectURL(blog.image)}
-              alt={`Blog ${id}`}
-              style={{ width: "80px", height: "auto", objectFit: "cover" }}
-            />
-          ) : (
-            "–"
-          )}
-        </td>
-        <td>{blog.title}</td>
-        <td>{blog.author}</td>
-        <td>{blog.description}</td>
-        <td>{blog.publishDate}</td>
-        <td>
-          <button
-            className="btn btn-sm btn-warning me-2"
-            onClick={() => handleOnEdit(id)}
-          >
-            Editar
-          </button>
-          <button
-            className="btn btn-sm btn-danger"
-            onClick={() => handleOnDelete(id)}
-          >
-            Eliminar
-          </button>
-        </td>
-      </tr>
-    ))}
-  </tbody>
-</table>
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Descripción</th>
+            <th>Fecha de Publicación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {blogs.map((blog, id) => (
+            <tr key={id}>
+              <td>
+                {blog.image ? (
+                  // Si es URL (string) o File, lo muestro con createObjectURL:
+                  <img
+                    src={
+                      blog.image instanceof File
+                        ? URL.createObjectURL(blog.image)
+                        : blog.image
+                    }
+                    alt={`Blog ${id}`}
+                    style={{ width: '80px', objectFit: 'cover' }}
+                  />
+                ) : (
+                  '–'
+                )}
+              </td>
+              <td>{blog.title}</td>
+              <td>{blog.author}</td>
+              <td>{blog.description}</td>
+              <td>{blog.publishDate}</td>
+              <td>
+                <button
+                  className="btn btn-sm btn-warning me-2"
+                  onClick={() => handleOnEdit(id)}
+                >
+                  Editar
+                </button>
+                <button
+                  className="btn btn-sm btn-danger"
+                  onClick={() => handleOnDelete(id)}
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

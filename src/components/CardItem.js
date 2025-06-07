@@ -13,16 +13,22 @@ const StyledCard = styled.div`
   }
 `;
 
-function CardItem({ image, title, author, description, publishDate }) {
+function CardItem({ title, author, description, publishDate, image }) {
   return (
     <StyledCard className="card h-100">
-      <img src={image} className="card-img-top" alt={title} />
+      <img 
+        src={image} 
+        alt={title} 
+        style={{ width: '100%', height: 'auto' }}
+      />
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
         <p className="card-text"><b>Autor:</b> {author}</p>
         <p className="card-text"><b>Descripción:</b> {description}</p>
-        <p className="card-text text-end fst-italic">{publishDate}</p>
       </div>
+      <p className="card-text text-end" style={{margin: '10px'}}>
+          <small className="text-muted">{publishDate}</small>
+        </p>
     </StyledCard>
   );
 }
