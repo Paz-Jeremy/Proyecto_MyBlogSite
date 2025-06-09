@@ -11,8 +11,15 @@ function Footer() {
     return (
         <StyledFooter style={{ backgroundColor: '#031926' }}>
         <div className="container mb-4">
-            <h5 className="mb-1">MyBlogSite</h5>
-            <small>Compartiendo historias inspiradoras cada día</small>
+            <div className="text-start d-flex flex-column align-items-start mb-3">
+              <img
+                src="https://previews.dropbox.com/p/thumb/ACorqtHE0hGpSOp_xkHXPQ3Eo8PWcghTYE1IzS_lt3W8YTp1xbpdUqtcScyct59ujUd_ru1GqYuJy5bvayfsECe7vIvivTgrnZD4FYFmaZWdesvqn1dqhm9cXIFal9kXJW6-9-qC042GKxo9KUHb8nMj5yHlb1mvLdaZ0tWs5SLHKJ7CaT2I-k3J9HnsfnJvqfMoNQa_kczfBHKD-Rc05_xfLMAuKi_7rXmcEu8qf305AFj_nAvGpfJMMaQGlAHEdoU9RooqzxHCMNiwwbqQDWdTqIx8scKMbdP5JhBjYX7GyBTPO9XZWeYEJ3lx-K3DDcLofwr1pRPQPOp_VixMtLHT/p.png"
+                alt="Logo MyBlogSite"
+                width="130"
+                className='mb-1'
+              />
+              <small>Compartiendo historias inspiradoras cada día</small>
+            </div>
             <ul className="nav justify-content-center flex-wrap mt-3">
                 <li className="nav-item mx-3">
                   <button
