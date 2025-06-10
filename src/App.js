@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import TopNavbar from './components/TopNavbar';
-import Login from './pages/page_Login/Login';
+import Login from './pages/pages_Login_&_Register/Login';
+import Register from './pages/pages_Login_&_Register/Register';
 import Home from './pages/Home';
 import Blogs from './pages/masters/Create_Blogs/Blogs';
 import Footer from './components/Footer';
@@ -49,6 +50,9 @@ function App() {
             <Routes>
                 {/* Ruta independiente para /login */}
                 <Route path="/login" element={<Login />} />
+
+                {/* Ruta independiente para /Register */}
+                <Route path="/register" element={<Register />} />
 
                 {/* Todas las demás rutas usan DefaultLayout */}
                 <Route element={<DefaultLayout />}>
