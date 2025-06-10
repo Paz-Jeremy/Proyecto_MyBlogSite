@@ -15,10 +15,15 @@ function Register () {
         try {
         const res = await registerUser(email, password);
             alert("usuario registrado");
+            navigate("/login");
         }catch (err){
             alert("error al registrar");
             console.log(err);
         }
+
+        // Limpio los campos
+        // setEmail('');
+        setPassword('');
     };
 
 
@@ -34,7 +39,7 @@ function Register () {
                         />
                     </div>
                     <div className="title_container">
-                        <p className="title">Crea Tu Cuenta En<br/>MyBlogSite</p>
+                        <p className="title">Registrate En<br/>MyBlogSite</p>
                     </div>
                     <div className="input_container">
                         <label className="input_label" htmlFor="email_field">Email</label>
