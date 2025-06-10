@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Login_&_Register.css'
+import { registerUser } from '../../api/authService';
 
 function Register () {
     const [email, setEmail] = useState('');
@@ -11,13 +12,13 @@ function Register () {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        // try {
-        // const res = await registerUser(email, password);
-        //     alert("usuario registrado");
-        // }catch (err){
-        //     alert("error al registrar");
-        //     console.log(err);
-        // }
+        try {
+        const res = await registerUser(email, password);
+            alert("usuario registrado");
+        }catch (err){
+            alert("error al registrar");
+            console.log(err);
+        }
     };
 
 
