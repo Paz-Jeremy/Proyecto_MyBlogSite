@@ -1,0 +1,316 @@
+.container_Principal {
+    width: 450px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 50px 40px 20px 40px;
+    background-color: #ffffff;
+    box-shadow: 0px 106px 42px rgba(0, 0, 0, 0.01),
+    0px 59px 36px rgba(0, 0, 0, 0.05), 0px 26px 26px rgba(0, 0, 0, 0.09),
+    0px 7px 15px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 11px;
+    font-family: "Inter", sans-serif;
+}
+
+.formulario{
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;    
+}
+.logo_container {
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.7);
+}
+.title_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #212121;
+}
+.input_container {
+    width: 100%;
+    height: fit-content;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.icon {
+    width: 20px;
+    position: absolute;
+    z-index: 99;
+    left: 12px;
+    bottom: 9px;
+}
+.input_label {
+    font-size: 0.75rem;
+    color: #8B8E98;
+    font-weight: 600;
+}
+.input_field {
+    width: auto;
+    height: 40px;
+    padding: 0 0 0 40px;
+    border-radius: 7px;
+    outline: none;
+    border: 1px solid #e5e5e5;
+    filter: drop-shadow(0px 1px 0px #efefef)
+    drop-shadow(0px 1px 0.5px rgba(239, 239, 239, 0.5));
+    transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+.input_field:focus {
+    border: 1px solid transparent;
+    box-shadow: 0px 0px 0px 2px #242424;
+    background-color: transparent;
+}
+.sign-in_btn {
+    width: 100%;
+    height: 40px;
+    border: 0;
+    background: #115DFC;
+    border-radius: 7px;
+    outline: none;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all .2s;
+}
+.sign-in_btn:hover {
+    background: #104ccf;
+    transform: scale(0.99);
+}
+
+.span {
+    font-size: 14px;
+    margin-left: 5px;
+    color: #2d79f3;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.sign-in_ggl {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #ffffff;
+    border-radius: 7px;
+    outline: none;
+    color: #242424;
+    border: 1px solid #e5e5e5;
+    filter: drop-shadow(0px 1px 0px #efefef)
+    drop-shadow(0px 1px 0.5px rgba(239, 239, 239, 0.5));
+    cursor: pointer;
+    transition: all .2s;
+}
+.sign-in_ggl:hover {
+    background: #efefef;
+    transform: scale(0.99);
+}
+.separator {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    color: #8B8E98;
+}
+.separator .line {
+    display: block;
+    width: 100%;
+    height: 1px;
+    border: 0;
+    background-color:#4d4d4d;
+}
+
+.p {
+  text-align: center;
+  color: black;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+/* --------------------- Fondo --------------------- */
+
+@keyframes hero-gradient-animation {
+    0% {
+        --y-0: 2%;
+        --x-0: 1%;
+        --c-0: hsla(205.16129032258067, 68%, 8%, 0.57);
+        --s-start-0: 7%;
+        --s-end-0: 84%;
+        --s-start-1: 7%;
+        --s-end-1: 72%;
+        --y-1: 75%;
+        --c-1: hsla(194.1818181818182, 0%, 100%, 1);
+        --x-1: 86%;
+        --c-2: hsla(205.47945205479454, 83%, 17%, 0.48);
+        --x-2: 2%;
+        --s-start-2: 7%;
+        --s-end-2: 84%;
+        --y-2: 98%;
+    }
+
+    100% {
+        --y-0: 80%;
+        --x-0: 44%;
+        --c-0: hsla(205.16129032258067, 68%, 8%, 0.57);
+        --s-start-0: 2;
+        --s-end-0: 63;
+        --s-start-1: 2;
+        --s-end-1: 63;
+        --y-1: 88%;
+        --c-1: hsla(194.1818181818182, 0%, 100%, 1);
+        --x-1: 8%;
+        --c-2: hsla(205.47945205479454, 83%, 17%, 0.48);
+        --x-2: 14%;
+        --s-start-2: 2;
+        --s-end-2: 63;
+        --y-2: 74%;
+    }
+}
+
+@property --y-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 2%
+}
+
+@property --x-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 1%
+}
+
+@property --c-0 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(205.16129032258067, 68%, 8%, 0.57)
+}
+
+@property --s-start-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 7%
+}
+
+@property --s-end-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 84%
+}
+
+@property --s-start-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 7%
+}
+
+@property --s-end-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 72%
+}
+
+@property --y-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 75%
+}
+
+@property --c-1 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(194.1818181818182, 0%, 100%, 1)
+}
+
+@property --x-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 86%
+}
+
+@property --c-2 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(205.47945205479454, 83%, 17%, 0.48)
+}
+
+@property --x-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 2%
+}
+
+@property --s-start-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 7%
+}
+
+@property --s-end-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 84%
+}
+
+@property --y-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 98%
+}
+
+.fondo {
+    --y-0: 2%;
+    --x-0: 1%;
+    --c-0: hsla(205.16129032258067, 68%, 8%, 0.57);
+    --y-1: 75%;
+    --c-1: hsla(194.1818181818182, 0%, 100%, 1);
+    --x-1: 86%;
+    --c-2: hsla(205.47945205479454, 83%, 17%, 0.48);
+    --x-2: 2%;
+    --y-2: 98%;
+    ;
+    background-color: hsla(205.16129032258067, 63%, 11%, 1);
+    background-image: radial-gradient(circle at var(--x-0) var(--y-0), var(--c-0) var(--s-start-0), transparent var(--s-end-0)), radial-gradient(circle at var(--x-1) var(--y-1), var(--c-1) var(--s-start-1), transparent var(--s-end-1)), radial-gradient(circle at var(--x-2) var(--y-2), var(--c-2) var(--s-start-2), transparent var(--s-end-2));
+    animation: hero-gradient-animation 10s linear infinite alternate;
+    background-blend-mode: normal, overlay, normal;
+}
+
+.fondo{
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+}
+
+@media (max-width: 768px) {
+    .fondo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;   /* ocupa toda la altura para centrar verticalmente */
+        padding: 0;      /* opcional, para que no haya padding extra */
+    }
+
+    .container_Principal {
+        width: 350px;
+    }
+}
