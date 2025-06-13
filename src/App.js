@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import About from './pages/page_About/About';
 import Error404 from './pages/Error';
 import Contacts from './pages/page_Contacts/Contacts';
+import RequireAuth from './components/RequireAuth';
 
 // Este componente Layout solo coloca Navbar arriba, <Outlet/> en medio y Footer al final
 function DefaultLayout() {
@@ -60,7 +61,10 @@ function App() {
                     <Route path="/" element={<Home blogs={blogs} />} />
                     
                     {/* Ruta de Blogs (/blogs) */}
-                    <Route path="/blogs" element={<Blogs blogs={blogs} setBlogs={setBlogs} />} />
+                    {/* Rutas protegidas */}
+                    <Route element={<RequireAuth />}>
+                        <Route path="/blogs" element={<Blogs blogs={blogs} setBlogs={setBlogs} />} />
+                    </Route>
                     
                     {/* Ruta de About (/about) */}
                     <Route path="/about" element={<About />} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Login_&_Register.css'
 import { loginUser } from '../../api/authService';
@@ -32,14 +32,15 @@ function Login () {
     const handleGoogleLogin = async() => {
         const {error} = await supabase.auth.signInWithOAuth({provider: "google"});
         if (error) console.log(error);
-    }
+    };
+    
     return (
         <div className="fondo">
             <div className="container_Principal">
             <form className="formulario" onSubmit={handleLogin}>
                 <div className="logo_container" >
                     <img
-                        src="https://previews.dropbox.com/p/thumb/ACossmMNFcqM-2pA5WojMXz-SUn62dcjBCl7hGDHGuvRvPaHKqR_LruB5V2tMbQ804ntRZNiSIWPN52_Gbq8EbprPExmjiOqvAGixtIxYLGkHi038t164MlZWlQJ_Pcro6hztCPcT-Tlm2ULxpniJ5-Iho8GHRtzZ-rBIhJSjprgUlgIBlpEaj8drkWR_n8DLQQMhxr-CgvwJtgDxdvrem-AcYcSpAQBkGI8O4O0BGDvQWk-4o0ZgcP2LCd5xXoo0_O6mRLlo5IXjTLEbv85Nvo7qBJVTjlshIVPjLNtvUdon9px-AUEXAPQ7tAzMl_tSyiDSWEK0vu6R_oKFdLjtqUs/p.png"
+                        src="https://previews.dropbox.com/p/thumb/ACpTnVZL5xGEnGage_lCiMqRuqg3-TT-a1ve3KI6yqc65FU1zAcfbsNM161YQqMjgY4ZsOs4WO-4apfvSg8v1c8SHZPmyPY44F6zGxI8GnIP49OxSRYmdxRnPuIZMbwXPQ3j-C1Db9D-KDbOZ0nHf1g-r8z-V1hrpccXVqO0jleoeS3Dc2stWXuzck4x58HRTQ6CiC-Wo6LZOId4ygdXPrgc-cPZHzvgf0Xxrn18b2rFJ_v1zmUp51Ju6l0AlINIxmFSl4yppela2pGgOgYWaClEjVipev2qTh7Ng1-sssec-rgjKJ2pLdwz60X7MTrSzG0/p.png"
                         alt="Logo MyBlogSite"
                         width='100'
                     />
