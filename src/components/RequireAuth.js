@@ -8,11 +8,14 @@ const RequireAuth = () => {
 
     useEffect(() => {
         const checkAuth = async () => {
-        // Obtiene la sesión actual de Supabase
+        // 1) ¿Tengo un user en localStorage? (login propio)
+        const localUser = !!localStorage.getItem('user');
+
+        // 2) ¿Tengo sesión en Supabase? (OAuth)
         const { data: { session } } = await supabase.auth.getSession();
-        if (session?.user) {
-            // Guarda en localStorage para rutas ya cargadas
-            localStorage.setItem('user', JSON.stringify(session.user));
+        const supaUser = !!session?.user;
+
+        if (localUser || supaUser) {
             setIsAuth(true);
         } else {
             setIsAuth(false);
@@ -23,8 +26,7 @@ const RequireAuth = () => {
     }, []);
 
     if (loading) {
-        // Podrías retornar un spinner o placeholder mientras verificas
-        return null;
+        return null; // o tu spinner
     }
     if (!isAuth) {
         return <Navigate to="/login" replace />;
