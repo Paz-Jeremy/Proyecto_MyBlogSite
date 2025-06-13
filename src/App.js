@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
-import TopNavbar from './components/TopNavbar';
+import TopNavbar from './components/navigationBar/TopNavbar';
 import Login from './pages/pages_Login_&_Register/Login';
 import Register from './pages/pages_Login_&_Register/Register';
 import Home from './pages/Home';
