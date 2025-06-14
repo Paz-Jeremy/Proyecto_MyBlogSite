@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Login_&_Register.css'
 import { registerUser } from '../../api/authService';
@@ -10,6 +9,15 @@ function Register () {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
+    // Redirigir a el inicio si ya ha iniciado sesión
+        useEffect(() => {
+            const storedUser = localStorage.getItem('user');
+            if (storedUser) {
+                // Si ya hay un usuario en localStorage, redirijo al inicio
+                navigate('/');
+            }
+        }, [navigate]);
 
     const handleRegister = async (e) => {
         e.preventDefault();
