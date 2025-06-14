@@ -40,13 +40,13 @@ function Login () {
             <form className="formulario" onSubmit={handleLogin}>
                 <div className="logo_container" >
                     <img
-                        src="https://previews.dropbox.com/p/thumb/ACpTnVZL5xGEnGage_lCiMqRuqg3-TT-a1ve3KI6yqc65FU1zAcfbsNM161YQqMjgY4ZsOs4WO-4apfvSg8v1c8SHZPmyPY44F6zGxI8GnIP49OxSRYmdxRnPuIZMbwXPQ3j-C1Db9D-KDbOZ0nHf1g-r8z-V1hrpccXVqO0jleoeS3Dc2stWXuzck4x58HRTQ6CiC-Wo6LZOId4ygdXPrgc-cPZHzvgf0Xxrn18b2rFJ_v1zmUp51Ju6l0AlINIxmFSl4yppela2pGgOgYWaClEjVipev2qTh7Ng1-sssec-rgjKJ2pLdwz60X7MTrSzG0/p.png"
+                        src="https://i.postimg.cc/xd4sn3ZB/Logo-Circular-My-Blog-Site2.png"
                         alt="Logo MyBlogSite"
                         width='100'
                     />
                 </div>
                 <div className="title_container">
-                    <p className="title">Inicia Sesión En<br/>MyBlogSite</p>
+                    <p className="title">Iniciar Sesión</p>
                 </div>
                 <div className="input_container">
                     <label className="input_label" htmlFor="email_field">Email</label>

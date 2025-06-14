@@ -13,7 +13,7 @@ function Footer() {
         <div className="container mb-4">
             <div className="text-start d-flex flex-column align-items-start mb-3">
               <img
-                src="https://previews.dropbox.com/p/thumb/ACorqtHE0hGpSOp_xkHXPQ3Eo8PWcghTYE1IzS_lt3W8YTp1xbpdUqtcScyct59ujUd_ru1GqYuJy5bvayfsECe7vIvivTgrnZD4FYFmaZWdesvqn1dqhm9cXIFal9kXJW6-9-qC042GKxo9KUHb8nMj5yHlb1mvLdaZ0tWs5SLHKJ7CaT2I-k3J9HnsfnJvqfMoNQa_kczfBHKD-Rc05_xfLMAuKi_7rXmcEu8qf305AFj_nAvGpfJMMaQGlAHEdoU9RooqzxHCMNiwwbqQDWdTqIx8scKMbdP5JhBjYX7GyBTPO9XZWeYEJ3lx-K3DDcLofwr1pRPQPOp_VixMtLHT/p.png"
+                src="https://i.postimg.cc/zDjJ7LH4/Logo-My-Blog-Site2.png"
                 alt="Logo MyBlogSite"
                 width="130"
                 className='mb-1'

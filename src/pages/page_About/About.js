@@ -38,7 +38,7 @@ function About() {
             {/* Imagen del fundador */}
             <div className="col-md-4 mb-4 mb-md-0">
               <img
-                src="https://previews.dropbox.com/p/thumb/ACpk8uzM-r_VsBM6JXASdbzQ7LMNOYrUQ2svVM1gSxR4SiC7V6QkRLXxCLRNAYXYyY8i1qelfaaClZU9gU0PCqoXO1T9sXRCEx5ZieXScxvXlfwdbOjoYRrKvVJQKB7QOI8akCgS3jP6i_GIWPHDDrJRWd_Lw7wPluIW0rP-dkOclf5Wszi2vnpahtDuY1Cc4PjvXhvASOcPodyGNVB91DvUWajozASeC_U3_XkeSb-SFCrqN7D7FllRGHdcbza_rFxNlWqndJ9xyxMfggOS29gNf-2_i7v7hEilgKdGCwV-PzeTOtcfIi_y3JjF1x96Nkv_oX-Zh8WqF_AVZZC6LdW0/p.jpeg"
+                src="https://i.postimg.cc/Kz4rq71m/Fundador.jpg"
                 alt="Foto del Fundador"
                 className="img-fluid rounded shadow-sm"
                 width="330"

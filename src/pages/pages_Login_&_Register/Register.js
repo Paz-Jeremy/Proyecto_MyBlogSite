@@ -33,13 +33,13 @@ function Register () {
                 <form className="formulario" onSubmit={handleRegister}>
                     <div className="logo_container" >
                         <img
-                            src="https://previews.dropbox.com/p/thumb/ACossmMNFcqM-2pA5WojMXz-SUn62dcjBCl7hGDHGuvRvPaHKqR_LruB5V2tMbQ804ntRZNiSIWPN52_Gbq8EbprPExmjiOqvAGixtIxYLGkHi038t164MlZWlQJ_Pcro6hztCPcT-Tlm2ULxpniJ5-Iho8GHRtzZ-rBIhJSjprgUlgIBlpEaj8drkWR_n8DLQQMhxr-CgvwJtgDxdvrem-AcYcSpAQBkGI8O4O0BGDvQWk-4o0ZgcP2LCd5xXoo0_O6mRLlo5IXjTLEbv85Nvo7qBJVTjlshIVPjLNtvUdon9px-AUEXAPQ7tAzMl_tSyiDSWEK0vu6R_oKFdLjtqUs/p.png"
+                            src="https://i.postimg.cc/xd4sn3ZB/Logo-Circular-My-Blog-Site2.png"
                             alt="Logo MyBlogSite"
                             width='100'
                         />
                     </div>
                     <div className="title_container">
-                        <p className="title">Registrate En<br/>MyBlogSite</p>
+                        <p className="title">Registro</p>
                     </div>
                     <div className="input_container">
                         <label className="input_label" htmlFor="email_field">Email</label>
