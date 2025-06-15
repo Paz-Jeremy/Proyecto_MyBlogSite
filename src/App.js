@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import TopNavbar from './components/navigationBar/TopNavbar';
 import Login from './pages/pages_Login_&_Register/Login';
@@ -10,6 +10,8 @@ import About from './pages/page_About/About';
 import Error404 from './pages/Error';
 import Contacts from './pages/page_Contacts/Contacts';
 import RequireAuth from './components/RequireAuth';
+import Profile from './pages/masters/Profile';
+import { getAllBlogs } from './api/blogsService';
 
 // Este componente Layout solo coloca Navbar arriba, <Outlet/> en medio y Footer al final
 function DefaultLayout() {
@@ -45,7 +47,20 @@ function App() {
             'https://ichef.bbci.co.uk/ace/ws/800/cpsprodpb/6162/production/_114403942_ps5.jpg.webp',
         },
     ]);
-    
+
+    useEffect(()=>{
+        const fetchBlogs = async () => {
+        try{
+            const {data} = await getAllBlogs();
+            setBlogs(data);
+            console.log(data);
+        }catch(err){
+            console.error("Error al obtener informacion: ", err);
+        }  
+        }
+        fetchBlogs();
+    }, [])
+
     return (
         <Router>
             <Routes>
@@ -64,6 +79,7 @@ function App() {
                     {/* Rutas protegidas */}
                     <Route element={<RequireAuth />}>
                         <Route path="/blogs" element={<Blogs blogs={blogs} setBlogs={setBlogs} />} />
+                        <Route path="/perfil" element={<Profile />} />
                     </Route>
                     
                     {/* Ruta de About (/about) */}

@@ -13,11 +13,11 @@ const StyledCard = styled.div`
   }
 `;
 
-function CardItem({ title, author, description, publishDate, image }) {
+function CardItem({ title, author, description, publishDate, image_url }) {
   return (
     <StyledCard className="card h-100">
       <img 
-        src={image} 
+        src={image_url} 
         alt={title} 
         style={{ width: '100%', height: 'auto' }}
       />

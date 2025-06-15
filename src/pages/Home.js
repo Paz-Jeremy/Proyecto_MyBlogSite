@@ -11,9 +11,9 @@ function Home({ blogs }) {
           blogs.map((blog, idx) => {
             // Si 'blog.image' es un File (objeto), creamos un object URL:
             const imageSrc =
-              blog.image && blog.image instanceof File
-                ? URL.createObjectURL(blog.image)
-                : blog.image; 
+              blog.image_url && blog.image_url instanceof File
+                ? URL.createObjectURL(blog.image_url)
+                : blog.image_url; 
             // De este modo: si 'image' ya venía como string (por ejemplo URL remota),
             // se usa directamente; si es File, crea un URL local.
 
@@ -23,8 +23,8 @@ function Home({ blogs }) {
                   title={blog.title}
                   author={blog.author}
                   description={blog.description}
-                  publishDate={blog.publishDate}
-                  image={imageSrc}
+                  publishDate={blog.publish_date}
+                  image_url={imageSrc}
                 />
               </div>
             );

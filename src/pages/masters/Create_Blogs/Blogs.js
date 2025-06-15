@@ -13,8 +13,8 @@ function Blogs({ blogs, setBlogs }) {
     title: "",
     author: "",
     description: "",
-    editorContent: "",
-    publishDate: ""
+    content: "",
+    publish_date: ""
   });
   // Ahora ‘blogs’ y ‘setBlogs’ vienen de props, ya no los inicializamos aquí.
   const [editIndex, setEditIndex] = useState(null);
@@ -62,7 +62,7 @@ function Blogs({ blogs, setBlogs }) {
         author: "",
         description: "",
         editorContent: "",
-        publishDate: ""
+        publish_date: ""
       });
     }
   };
@@ -80,7 +80,7 @@ function Blogs({ blogs, setBlogs }) {
     } else {
       // Modo “Agregar”
       setBlogs([...blogs, form]);
-
+      // console.log("Editor: ", editorRef.current.getContents());
       // Función de la libreria de SunEditor, Basicamente la uso para vaciar el editor
       editorRef.current.setContents("");
       // console.log(form);
@@ -93,7 +93,7 @@ function Blogs({ blogs, setBlogs }) {
       author: "",
       description: "",
       editorContent: "",
-      publishDate: ""
+      publish_date: ""
     });
   };
 
@@ -102,7 +102,7 @@ function Blogs({ blogs, setBlogs }) {
     { name: "title", label: "Título", type: "text" },
     { name: "author", label: "Autor", type: "text" },
     { name: "description", label: "Descripción", type: "text" },
-    { name: "publishDate", label: "Fecha de Publicación", type: "date" }
+    { name: "publish_date", label: "Fecha de Publicación", type: "date" }
   ];
 
   // Usamos la key solo basada en editIndex: no va ligada al contenido. fuerza a React a remontar el SunEditor cuando cambias de blog a editar, reiniciando su estado interno.
@@ -150,7 +150,7 @@ function Blogs({ blogs, setBlogs }) {
             getSunEditorInstance={(core) => {
               editorRef.current = core;
             }}
-            defaultValue={form.editorContent}
+            defaultValue={form.content}
             setOptions={{
               height: 300,
               buttonList: [
@@ -249,13 +249,13 @@ function Blogs({ blogs, setBlogs }) {
           {blogs.map((blog, id) => (
             <tr key={id}>
               <td>
-                {blog.image ? (
+                {blog.image_url ? (
                   // Si es URL (string) o File, lo muestro con createObjectURL:
                   <img
                     src={
-                      blog.image instanceof File
-                        ? URL.createObjectURL(blog.image)
-                        : blog.image
+                      blog.image_url instanceof File
+                        ? URL.createObjectURL(blog.image_url)
+                        : blog.image_url
                     }
                     alt={`Blog ${id}`}
                     style={{ width: '80px', objectFit: 'cover' }}
@@ -267,7 +267,7 @@ function Blogs({ blogs, setBlogs }) {
               <td>{blog.title}</td>
               <td>{blog.author}</td>
               <td>{blog.description}</td>
-              <td>{blog.publishDate}</td>
+              <td>{blog.publish_date}</td>
               <td>
                 <button
                   className="btn btn-sm btn-warning me-2"
