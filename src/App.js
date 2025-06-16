@@ -28,7 +28,6 @@ function DefaultLayout() {
 }
 
 function App() {
-    // Inicializamos el estado con los dos blogs por defecto
     const [blogs, setBlogs] = useState([]);
 
     useEffect(()=>{
