@@ -8,23 +8,44 @@ function TopNavbar() {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        // Intenta obtener el usuario desde localStorage
-        const localUser = localStorage.getItem('user');
-        if (localUser) {
-            setUser(JSON.parse(localUser));
+        // 1. Al montar, intenta cargar usuario de localStorage o Supabase
+        const initUser = async () => {
+        const stored = localStorage.getItem('user');
+        if (stored) {
+            setUser(JSON.parse(stored));
         } else {
-            // Si no hay en localStorage, intenta obtenerlo desde Supabase
-            supabase.auth.getUser().then(({ data }) => {
-                if (data?.user) {
-                    setUser(data.user);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                }
-            });
+            const { data } = await supabase.auth.getUser();
+            if (data.user) {
+            setUser(data.user);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            }
         }
-    }, []);
+        };
+        initUser();
 
-    // Puedes personalizar el nombre y avatar según la estructura de tu usuario
-    const userName = user?.user_metadata?.name || user?.email || 'Usuario';
+        // 2. Suscríbete a cambios de auth
+        const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+        if (event === 'SIGNED_OUT') {
+            // Limpia estado y storage al cerrar sesión
+            setUser(null);
+            localStorage.removeItem('user');
+            navigate('/login');
+        }
+        if (event === 'SIGNED_IN' && session?.user) {
+            // Actualiza estado al iniciar sesión
+            setUser(session.user);
+            localStorage.setItem('user', JSON.stringify(session.user));
+        }
+        });
+
+        // 3. Cleanup al desmontar
+        return () => {
+        listener.subscription.unsubscribe();
+        };
+    }, [navigate]);
+
+    // Nombre y avatar
+    const userName = user?.user_metadata?.full_name || user?.email || 'Usuario';
     const userAvatar = user?.user_metadata?.avatar_url;
 
     return (

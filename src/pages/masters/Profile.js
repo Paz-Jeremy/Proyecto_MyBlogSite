@@ -29,7 +29,7 @@ function Profile() {
             console.error('Error al cerrar sesión:', error.message);
         } else {
             localStorage.removeItem('user');
-            navigate('/login');
+            navigate('/');
         }
     };
 
