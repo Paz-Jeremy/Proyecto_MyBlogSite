@@ -6,5 +6,5 @@ export const getAllBlogs = async () => {
 }
 
 export const createNewBlogs = async () => {
-    return axios.post("/blogs/newBooks");
+    return axios.post("/blogs/newBlog");
 }
