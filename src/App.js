@@ -29,24 +29,7 @@ function DefaultLayout() {
 
 function App() {
     // Inicializamos el estado con los dos blogs por defecto
-    const [blogs, setBlogs] = useState([
-        {
-        title: 'Xbox',
-        author: 'Jeremy Castellanos',
-        description: 'Información general de Xbox',
-        publishDate: '2025-06-06',
-        image:
-            'https://xboxwire.thesourcemediaassets.com/sites/2/2024/11/New-Xbox-Series-X_S-Console-Options-Family_NoText-65586e62c31bf0eee51f.jpg',
-        },
-        {
-        title: 'Playstation',
-        author: 'Juan Garcia',
-        description: 'Información general de Playstation',
-        publishDate: '2024-06-06',
-        image:
-            'https://ichef.bbci.co.uk/ace/ws/800/cpsprodpb/6162/production/_114403942_ps5.jpg.webp',
-        },
-    ]);
+    const [blogs, setBlogs] = useState([]);
 
     useEffect(()=>{
         const fetchBlogs = async () => {
