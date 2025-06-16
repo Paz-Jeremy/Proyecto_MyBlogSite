@@ -21,14 +21,14 @@ function Login () {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) {
-        console.error('Error iniciando sesión:', error.message);
-        setError('Correo o contraseña incorrecta');
-        return;
+        try{
+        const res = await loginUser(email, password);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        navigate("/");
+        }catch (err){
+            alert("error al iniciar sesion");
+        console.log(err);
         }
-        localStorage.setItem('user', JSON.stringify(data.user));
-        navigate('/');
     };
 
     const handleGoogleLogin = async() => {

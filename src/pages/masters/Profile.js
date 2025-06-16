@@ -8,19 +8,11 @@ function Profile() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // obtener el usuario actual de Supabase
-        async function fetchUser() {
-            const {
-                data: { user },
-                error
-            } = await supabase.auth.getUser();
-            if (error) {
-                console.log('Error obteniendo usuario:', error.message);
-                return;
-            }
-                setUserInfo(user);
+        // Obtener el usuario actual desde localStorage
+        const localUser = localStorage.getItem('user');
+        if (localUser) {
+            setUserInfo(JSON.parse(localUser));
         }
-        fetchUser();
     }, []);
 
     const handleLogout = async () => {
