@@ -5,37 +5,48 @@ import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
 import es from "suneditor/src/lang/es";
 
+import {createNewBlogs} from "../../../api/blogsService";
+import { supabase } from "../../../utils/supabaseClient";
+
+const BUCKET = process.env.REACT_APP_SUPABASE_BUCKET;
+const uploadImage = async (file, bucket = BUCKET, folder = 'images') => {
+  const fileExt = file.name.split('.').pop();
+  const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
+  const filePath = `${folder}/${fileName}`;
+  const { error: uploadError } = await supabase.storage.from(bucket).upload(filePath, file, {
+    cacheControl: '3600', upsert: true
+  });
+  if (uploadError) throw uploadError;
+  const { data: urlData } = supabase.storage.from(bucket).getPublicUrl(filePath);
+  return urlData.publicUrl;
+};
 
 function Blogs({ blogs, setBlogs }) {
   const editorRef = useRef(null);
   const [form, setForm] = useState({
-    image: null,
+    image_url: null,
     title: "",
     author: "",
     description: "",
     content: "",
-    publish_date: ""
+    publish_date: "",
+    userId: JSON.parse(localStorage.getItem("user")).id
   });
   // Ahora ‘blogs’ y ‘setBlogs’ vienen de props, ya no los inicializamos aquí.
   const [editIndex, setEditIndex] = useState(null);
 
-  // Inputs plano: title, author, description, publishDate
+  const resetForm = () => {
+    setForm({ image_url: null, title: "", author: "", description: "", content: "", publish_date: "", userId: JSON.parse(localStorage.getItem("user")).id });
+  };
+
   const handleOnChangeInputs = (e) => {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   // Manejador específico para el input de tipo file (imagen)
   const handleOnImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setForm((prev) => ({
-        ...prev,
-        image: file
-      }));
-    }
+    setForm(prev => ({ ...prev, image_url: file || null }));
   };
 
   // Manejador “Editar” (cargar datos de un blog existente en el formulario)
@@ -46,55 +57,45 @@ function Blogs({ blogs, setBlogs }) {
 
   // Manejador “Eliminar” (borra un blog de la lista)
   const handleOnDelete = (id) => {
-    // Crea un nuevo array excluyendo el elemento cuya posición es id, filter recorre todo el array y mantiene todos los índices distintos de id.
-    const updatedBlogs = blogs.filter((blog, index) => index !== id);
-
-    // Actualiza el estado blogs con ese array filtrado (es decir, el blog en posición id desaparece).
-    setBlogs(updatedBlogs);
-
+    const updated = blogs.filter((_, index) => index !== id);
+    setBlogs(updated);
     if (editIndex === id) {
       // Si estaba editando ese mismo índice, cancelar edición
       setEditIndex(null);
-      // Y limpio los campos
-      setForm({
-        image: null,
-        title: "",
-        author: "",
-        description: "",
-        editorContent: "",
-        publish_date: ""
-      });
+      resetForm();
     }
   };
 
   // Manejador “Agregar” o “Actualizar” (al enviar el formulario)
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
+    try {
+      let imageUrl = form.image_url;
+      if (imageUrl instanceof File) {
+        imageUrl = await uploadImage(imageUrl);
+      }
+      const payload = { ...form, image_url: imageUrl };
 
-    if (editIndex !== null) {
-      // Modo “Actualizar”
-      const updatedBlogs = [...blogs]; // copia el array
-      updatedBlogs[editIndex] = form; // sustituye el elemento 
-      setBlogs(updatedBlogs); // y actualiza.
+      if (editIndex !== null) {
+        // Modo edición
+        const updated = [...blogs];
+        updated[editIndex] = payload;
+        setBlogs(updated);
+      } else {
+        // Modo creación
+        const res = await createNewBlogs(payload);
+        console.log("Blog agregado (backend response):", res.data || res);
+        setBlogs([...blogs, payload]);
+        alert("Blog agregado exitosamente");
+        editorRef.current.setContents(""); // Limpiar el editor
+      }
+    } catch (error) {
+      console.error("Error en envío de blog:", error);
+      alert("Hubo un error al subir la imagen o crear el blog. Revisa la consola.");
+    } finally {
+      resetForm();
       setEditIndex(null);
-    } else {
-      // Modo “Agregar”
-      setBlogs([...blogs, form]);
-      // console.log("Editor: ", editorRef.current.getContents());
-      // Función de la libreria de SunEditor, Basicamente la uso para vaciar el editor
-      editorRef.current.setContents("");
-      // console.log(form);
     }
-
-    // Limpiar el formulario
-    setForm({
-      image: null,
-      title: "",
-      author: "",
-      description: "",
-      editorContent: "",
-      publish_date: ""
-    });
   };
 
   // Definir inputs de texto
@@ -115,11 +116,10 @@ function Blogs({ blogs, setBlogs }) {
       <form onSubmit={handleOnSubmit} className="mb-4 form-Blogs">
         {/* --- INPUT para cargar la imagen --- */}
         <div className="contenedor-Upload">
-          <label className="label-img">Imagen de portada: </label>
+          <label className="label-img">Imagen de portada:</label>
           <input
             className="input-img"
-            id="image"
-            name="image"
+            name="image_url"
             type="file"
             accept="image/*"
             onChange={handleOnImageChange}
@@ -221,7 +221,7 @@ function Blogs({ blogs, setBlogs }) {
               placeholder: "Comienza a escribir tu blog..."
             }}
             onChange={(html) => {
-              setForm((prev) => ({ ...prev, editorContent: html }));
+              setForm((prev) => ({ ...prev, content: html }));
             }}
           />
         </div>

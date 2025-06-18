@@ -5,6 +5,6 @@ export const getAllBlogs = async () => {
     return response.data;
 }
 
-export const createNewBlogs = async () => {
-    return axios.post("/blogs/newBlog");
+    export const createNewBlogs = async (formData) => {
+    return axios.post("/blogs/newBlog", formData);
 }
