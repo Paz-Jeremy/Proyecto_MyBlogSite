@@ -5,6 +5,14 @@ export const getAllBlogs = async () => {
     return response.data;
 }
 
-    export const createNewBlogs = async (formData) => {
+export const createNewBlogs = async (formData) => {
     return axios.post("/blogs/newBlog", formData);
+}
+
+export const updateBlogs = async (id, formData) => {
+    return axios.put(`/blogs/updateBlog/${id}`, formData);
+}
+
+export const deleteBlogs = async (id) => {
+    return axios.delete(`/blogs/deleteBlog/${id}`);
 }

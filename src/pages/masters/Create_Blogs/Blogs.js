@@ -6,6 +6,7 @@ import "suneditor/dist/css/suneditor.min.css";
 import es from "suneditor/src/lang/es";
 
 import {createNewBlogs} from "../../../api/blogsService";
+import { updateBlogs } from "../../../api/blogsService";
 import { supabase } from "../../../utils/supabaseClient";
 
 const BUCKET = process.env.REACT_APP_SUPABASE_BUCKET;
@@ -78,9 +79,12 @@ function Blogs({ blogs, setBlogs }) {
 
       if (editIndex !== null) {
         // Modo edición
+        const { data } = await updateBlogs(blogs[editIndex].id, payload);
+        console.log("Blog actualizado:", data);
         const updated = [...blogs];
         updated[editIndex] = payload;
         setBlogs(updated);
+        alert("Blog actualizado exitosamente");
       } else {
         // Modo creación
         const res = await createNewBlogs(payload);
