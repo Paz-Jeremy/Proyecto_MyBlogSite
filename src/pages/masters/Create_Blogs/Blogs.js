@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./Blogs.css";
 
 import SunEditor from "suneditor-react";
@@ -9,6 +9,7 @@ import {createNewBlogs} from "../../../api/blogsService";
 import { updateBlogs } from "../../../api/blogsService";
 import { deleteBlogs } from "../../../api/blogsService";
 import { supabase } from "../../../utils/supabaseClient";
+import { getBlogByUser } from "../../../api/blogsService";
 
 const BUCKET = process.env.REACT_APP_SUPABASE_BUCKET;
 const uploadImage = async (file, bucket = BUCKET, folder = 'images') => {
@@ -23,7 +24,7 @@ const uploadImage = async (file, bucket = BUCKET, folder = 'images') => {
   return urlData.publicUrl;
 };
 
-function Blogs({ blogs, setBlogs }) {
+function Blogs() {
   const editorRef = useRef(null);
   const [form, setForm] = useState({
     image_url: null,
@@ -36,6 +37,22 @@ function Blogs({ blogs, setBlogs }) {
   });
   // Ahora ‘blogs’ y ‘setBlogs’ vienen de props, ya no los inicializamos aquí.
   const [editIndex, setEditIndex] = useState(null);
+
+  const [blogsByUser, setBlogsByUser] = useState([]);
+
+  useEffect(()=>{
+          const fetchBlogsByUser = async () => {
+            try {
+                const userId = JSON.parse(localStorage.getItem("user")).id;
+                const { data } = await getBlogByUser(userId);
+                setBlogsByUser(data);
+                console.log("Blogs del usuario:", data);
+            } catch (err) {
+                console.log("Error al obtener blogs del usuario:", err);
+            }
+          }
+          fetchBlogsByUser();
+      }, [])
 
   const resetForm = () => {
     setForm({ image_url: null, title: "", author: "", description: "", content: "", publish_date: "", userId: JSON.parse(localStorage.getItem("user")).id });
@@ -52,25 +69,27 @@ function Blogs({ blogs, setBlogs }) {
   };
 
   // Manejador “Editar” (cargar datos de un blog existente en el formulario)
-  const handleOnEdit = (id) => {
-    setForm(blogs[id]);
-    setEditIndex(id);
+  const handleOnEdit = (index) => {
+    const blog = blogsByUser[index];
+    setForm(blog);
+    setEditIndex(index);
   };
 
   // Manejador “Eliminar” (borra un blog de la lista)
-  const handleOnDelete = (id) => {
-    if (!window.confirm("¿Estás seguro de eliminar este blog? Esta acción no se puede deshacer.")) {
-      return; // Si el usuario cancela, no hacemos nada
-    }
-    const { data } = deleteBlogs(blogs[id].id);
-    console.log("Blog eliminado:", data);
-    const updated = blogs.filter((_, index) => index !== id);
-    setBlogs(updated);
-    alert("Blog eliminado exitosamente");
-    if (editIndex === id) {
-      // Si estaba editando ese mismo índice, cancelar edición
-      setEditIndex(null);
-      resetForm();
+  const handleOnDelete = async (index) => {
+    if (!window.confirm("¿Estás seguro de eliminar este blog? Esta acción no se puede deshacer.")) return;
+    try {
+      await deleteBlogs(blogsByUser[index].id);
+      const updated = blogsByUser.filter((_, i) => i !== index);
+      setBlogsByUser(updated);
+      alert("Blog eliminado exitosamente");
+      if (editIndex === index) {
+        setEditIndex(null);
+        resetForm();
+      }
+    } catch (err) {
+      console.error("Error al eliminar blog:", err);
+      alert("Error al eliminar el blog. Revisa la consola.");
     }
   };
 
@@ -86,17 +105,17 @@ function Blogs({ blogs, setBlogs }) {
 
       if (editIndex !== null) {
         // Modo edición
-        const { data } = await updateBlogs(blogs[editIndex].id, payload);
+        const { data } = await updateBlogs(blogsByUser[editIndex].id, payload);
         console.log("Blog actualizado:", data);
-        const updated = [...blogs];
+        const updated = [...blogsByUser];
         updated[editIndex] = payload;
-        setBlogs(updated);
+        setBlogsByUser(updated);
         alert("Blog actualizado exitosamente");
       } else {
         // Modo creación
-        const res = await createNewBlogs(payload);
-        console.log("Blog agregado (backend response):", res.data || res);
-        setBlogs([...blogs, payload]);
+        const { data } = await createNewBlogs(payload);
+        console.log("Blog agregado (backend response):", data);
+        setBlogsByUser([...blogsByUser, payload]);
         alert("Blog agregado exitosamente");
         editorRef.current.setContents(""); // Limpiar el editor
       }
@@ -257,44 +276,43 @@ function Blogs({ blogs, setBlogs }) {
           </tr>
         </thead>
         <tbody>
-          {blogs.map((blog, id) => (
-            <tr key={id}>
-              <td>
-                {blog.image_url ? (
-                  // Si es URL (string) o File, lo muestro con createObjectURL:
-                  <img
-                    src={
-                      blog.image_url instanceof File
-                        ? URL.createObjectURL(blog.image_url)
-                        : blog.image_url
-                    }
-                    alt={`Blog ${id}`}
-                    style={{ width: '80px', objectFit: 'cover' }}
-                  />
-                ) : (
-                  '–'
-                )}
-              </td>
-              <td>{blog.title}</td>
-              <td>{blog.author}</td>
-              <td>{blog.description}</td>
-              <td>{blog.publish_date}</td>
-              <td>
-                <button
-                  className="btn btn-sm btn-warning me-2"
-                  onClick={() => handleOnEdit(id)}
-                >
-                  Editar
-                </button>
-                <button
-                  className="btn btn-sm btn-danger"
-                  onClick={() => handleOnDelete(id)}
-                >
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-          ))}
+          {blogsByUser.map((blog, id) => (
+          <tr key={id}>
+            <td>
+              {blog.image_url ? (
+                <img
+                  src={
+                    blog.image_url instanceof File
+                      ? URL.createObjectURL(blog.image_url)
+                      : blog.image_url
+                  }
+                  alt={`Blog ${id}`}
+                  style={{ width: '80px', objectFit: 'cover' }}
+                />
+              ) : (
+                '–'
+              )}
+            </td>
+            <td>{blog.title}</td>
+            <td>{blog.author}</td>
+            <td>{blog.description}</td>
+            <td>{blog.publish_date}</td>
+            <td>
+              <button
+                className="btn btn-sm btn-warning me-2"
+                onClick={() => handleOnEdit(id)}
+              >
+                Editar
+              </button>
+              <button
+                className="btn btn-sm btn-danger"
+                onClick={() => handleOnDelete(id)}
+              >
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        ))}
         </tbody>
       </table>
     </div>

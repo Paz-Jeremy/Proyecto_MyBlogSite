@@ -60,7 +60,7 @@ function App() {
                     {/* Ruta de Blogs (/blogs) */}
                     {/* Rutas protegidas */}
                     <Route element={<RequireAuth />}>
-                        <Route path="/blogs" element={<Blogs blogs={blogs} setBlogs={setBlogs} />} />
+                        <Route path="/blogs" element={<Blogs />} />
                         <Route path="/perfil" element={<Profile />} />
                     </Route>
                     
