@@ -7,6 +7,7 @@ import es from "suneditor/src/lang/es";
 
 import {createNewBlogs} from "../../../api/blogsService";
 import { updateBlogs } from "../../../api/blogsService";
+import { deleteBlogs } from "../../../api/blogsService";
 import { supabase } from "../../../utils/supabaseClient";
 
 const BUCKET = process.env.REACT_APP_SUPABASE_BUCKET;
@@ -58,8 +59,14 @@ function Blogs({ blogs, setBlogs }) {
 
   // Manejador “Eliminar” (borra un blog de la lista)
   const handleOnDelete = (id) => {
+    if (!window.confirm("¿Estás seguro de eliminar este blog? Esta acción no se puede deshacer.")) {
+      return; // Si el usuario cancela, no hacemos nada
+    }
+    const { data } = deleteBlogs(blogs[id].id);
+    console.log("Blog eliminado:", data);
     const updated = blogs.filter((_, index) => index !== id);
     setBlogs(updated);
+    alert("Blog eliminado exitosamente");
     if (editIndex === id) {
       // Si estaba editando ese mismo índice, cancelar edición
       setEditIndex(null);
