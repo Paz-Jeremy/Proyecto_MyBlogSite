@@ -1,5 +1,6 @@
 import CardItem from "../components/CardItem";
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // Home ahora recibe `blogs` por props
 function Home({ blogs }) {
@@ -18,14 +19,16 @@ function Home({ blogs }) {
             // se usa directamente; si es File, crea un URL local.
 
             return (
-              <div className="col-md-4 mb-4" key={idx}>
-                <CardItem
-                  title={blog.title}
-                  author={blog.author}
-                  description={blog.description}
-                  publishDate={blog.publish_date}
-                  image_url={imageSrc}
-                />
+              <div className="col-md-4 mb-4" key={blog.id || idx}>
+                <Link to={`/blog/${blog.id || idx}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <CardItem
+                    title={blog.title}
+                    author={blog.author}
+                    description={blog.description}
+                    publishDate={blog.publish_date}
+                    image_url={imageSrc}
+                  />
+                </Link>
               </div>
             );
           })
