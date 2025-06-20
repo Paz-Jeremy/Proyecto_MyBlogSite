@@ -12,6 +12,7 @@ import Contacts from './pages/page_Contacts/Contacts';
 import RequireAuth from './components/RequireAuth';
 import Profile from './pages/masters/Profile';
 import { getAllBlogs } from './api/blogsService';
+import BlogInfo from './components/BlogInfo';
 
 // Este componente Layout solo coloca Navbar arriba, <Outlet/> en medio y Footer al final
 function DefaultLayout() {
@@ -69,6 +70,9 @@ function App() {
 
                     {/* Ruta de Contacts (/contacts) */}
                     <Route path="/contacts" element={<Contacts />} />
+
+                    {/* Ruta para BlogInfo (/blog/:id) */}
+                    <Route path="/blog/:id" element={<BlogInfo blogs={blogs} />} />
 
                     {/* Error 404: todo path que no haya matcheado arriba caerá aquí */}
                     <Route path="*" element={<Error404 />} />
