@@ -24,7 +24,7 @@ const uploadImage = async (file, bucket = BUCKET, folder = 'images') => {
   return urlData.publicUrl;
 };
 
-function Blogs() {
+function Blogs( { blogs, setBlogs } ) {
   const editorRef = useRef(null);
   const [form, setForm] = useState({
     image_url: null,
@@ -82,6 +82,7 @@ function Blogs() {
       await deleteBlogs(blogsByUser[index].id);
       const updated = blogsByUser.filter((_, i) => i !== index);
       setBlogsByUser(updated);
+      setBlogs(prev => prev.filter(b => b.id !== blogsByUser[index].id)); // ← actualiza el global
       alert("Blog eliminado exitosamente");
       if (editIndex === index) {
         setEditIndex(null);
@@ -110,12 +111,17 @@ function Blogs() {
         const updated = [...blogsByUser];
         updated[editIndex] = payload;
         setBlogsByUser(updated);
+        setBlogs(prev =>
+          prev.map(b => (b.id === payload.id ? payload : b))
+        );
         alert("Blog actualizado exitosamente");
       } else {
         // Modo creación
-        const { data } = await createNewBlogs(payload);
-        console.log("Blog agregado (backend response):", data);
-        setBlogsByUser([...blogsByUser, payload]);
+        const response = await createNewBlogs(payload);
+        const newBlog = Array.isArray(response.data?.data) ? response.data.data[0] : response.data;
+        console.log("Blog creado:", newBlog);
+        setBlogsByUser([...blogsByUser, newBlog]); // Agrega el nuevo blog al estado local
+        setBlogs(prev => [...prev, newBlog]); // Actualiza el estado global de blogs
         alert("Blog agregado exitosamente");
         editorRef.current.setContents(""); // Limpiar el editor
       }
