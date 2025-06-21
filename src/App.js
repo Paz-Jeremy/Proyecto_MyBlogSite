@@ -29,13 +29,13 @@ function DefaultLayout() {
 }
 
 function App() {
-    const [blogs, setBlogs] = useState([]);
+    const [blogs, setBlogs] = useState([]); // Estado para almacenar todos los blogs
 
     useEffect(()=>{
         const fetchBlogs = async () => {
         try{
-            const {data} = await getAllBlogs();
-            setBlogs(data);
+            const {data} = await getAllBlogs(); // Llama al endpoint
+            setBlogs(data); // Guarda los blogs en el estado
             console.log(data);
         }catch(err){
             console.error("Error al obtener informacion: ", err);
@@ -57,11 +57,12 @@ function App() {
                 <Route element={<DefaultLayout />}>
                     {/* Ruta de Home (/) */}
                     <Route path="/" element={<Home blogs={blogs} />} />
-                    
-                    {/* Ruta de Blogs (/blogs) */}
+                
                     {/* Rutas protegidas */}
                     <Route element={<RequireAuth />}>
+                        {/* Ruta de Blogs (/blogs) */}
                         <Route path="/blogs" element={<Blogs blogs={blogs} setBlogs={setBlogs} />} />
+                        {/* Ruta de Profile (/perfil) */}
                         <Route path="/perfil" element={<Profile />} />
                     </Route>
                     

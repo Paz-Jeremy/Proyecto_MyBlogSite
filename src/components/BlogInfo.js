@@ -3,19 +3,20 @@ import { useParams } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 
 function BlogInfo({ blogs }) {
-    const { id } = useParams();
+    const { id } = useParams(); // extrae de la URL el parámetro :id
     const [blog, setBlog] = useState(null);
 
     useEffect(() => {
+        // Busca el blog con el ID correspondiente
         const found = blogs.find(b => String(b.id) === id);
         if (found) {
-            setBlog(found);
+            setBlog(found); // Actualiza el estado con el blog encontrado
         }
-    }, [id, blogs]);
+    }, [id, blogs]); // Se dispara cada vez que cambian id o blogs
 
-    if (!blog) return <p>Cargando...</p>;
+    if (!blog) return <p>Cargando...</p>; // Muestra un mensaje mientras se carga el blog
 
-    // Sanitize HTML content
+    // Pasas blog.content por DOMPurify para eliminar scripts o etiquetas peligrosas.
     const sanitizedContent = DOMPurify.sanitize(blog.content);
 
     return (

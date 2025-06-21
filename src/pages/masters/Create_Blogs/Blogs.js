@@ -13,13 +13,19 @@ import { getBlogByUser } from "../../../api/blogsService";
 
 const BUCKET = process.env.REACT_APP_SUPABASE_BUCKET;
 const uploadImage = async (file, bucket = BUCKET, folder = 'images') => {
-  const fileExt = file.name.split('.').pop();
-  const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
-  const filePath = `${folder}/${fileName}`;
+  const fileExt = file.name.split('.').pop(); // Obtiene la extensión del archivo
+  const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`; // Genera un nombre único para evitar colisiones
+  const filePath = `${folder}/${fileName}`; // Define la ruta completa del archivo en el bucket
+
+  // Sube el archivo
   const { error: uploadError } = await supabase.storage.from(bucket).upload(filePath, file, {
     cacheControl: '3600', upsert: true
   });
+
+  // Si hay un error al subir, lo lanzamos
   if (uploadError) throw uploadError;
+
+  // Obtiene la URL pública del archivo subido
   const { data: urlData } = supabase.storage.from(bucket).getPublicUrl(filePath);
   return urlData.publicUrl;
 };
@@ -40,6 +46,7 @@ function Blogs( { blogs, setBlogs } ) {
 
   const [blogsByUser, setBlogsByUser] = useState([]);
 
+  // cargar blogs del usuario al montar el componente y los asigna a blogsByUser
   useEffect(()=>{
           const fetchBlogsByUser = async () => {
             try {
@@ -54,6 +61,7 @@ function Blogs( { blogs, setBlogs } ) {
           fetchBlogsByUser();
       }, [])
 
+  // Resetea el formulario a su estado inicial
   const resetForm = () => {
     setForm({ image_url: null, title: "", author: "", description: "", content: "", publish_date: "", userId: JSON.parse(localStorage.getItem("user")).id });
   };
@@ -81,7 +89,7 @@ function Blogs( { blogs, setBlogs } ) {
     try {
       await deleteBlogs(blogsByUser[index].id);
       const updated = blogsByUser.filter((_, i) => i !== index);
-      setBlogsByUser(updated);
+      setBlogsByUser(updated); // Actualiza el estado local de blogsByUser
       setBlogs(prev => prev.filter(b => b.id !== blogsByUser[index].id)); // ← actualiza el global
       alert("Blog eliminado exitosamente");
       if (editIndex === index) {
@@ -281,10 +289,10 @@ function Blogs( { blogs, setBlogs } ) {
             <th>Acciones</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="table-group-divider">
           {blogsByUser.map((blog, id) => (
           <tr key={id}>
-            <td>
+            <td className="align-middle">
               {blog.image_url ? (
                 <img
                   src={
@@ -299,11 +307,11 @@ function Blogs( { blogs, setBlogs } ) {
                 '–'
               )}
             </td>
-            <td>{blog.title}</td>
-            <td>{blog.author}</td>
-            <td>{blog.description}</td>
-            <td>{blog.publish_date}</td>
-            <td>
+            <td className="align-middle">{blog.title}</td>
+            <td className="align-middle">{blog.author}</td>
+            <td className="align-middle">{blog.description}</td>
+            <td className="align-middle">{blog.publish_date}</td>
+            <td className="align-middle">
               <button
                 className="btn btn-sm btn-warning me-2"
                 onClick={() => handleOnEdit(id)}

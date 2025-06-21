@@ -89,7 +89,7 @@ function Contacts() {
                                 </div>
                                 <h6 className="fw-bold">SOPORTE</h6>
                                 <p className="mb-1">
-                                    <span className="fw-bold">Tel:</span> (+504) 9999-9999
+                                    <span className="fw-bold">Tel:</span> (+504) 9728-4833
                                 </p>
                                 <p className="mb-0">
                                 <span className="fw-bold">Email: </span>

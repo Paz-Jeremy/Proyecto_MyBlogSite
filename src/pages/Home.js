@@ -19,8 +19,8 @@ function Home({ blogs }) {
             // se usa directamente; si es File, crea un URL local.
 
             return (
-              <div className="col-md-4 mb-4" key={blog.id || idx}>
-                <Link to={`/blog/${blog.id || idx}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div className="col-md-4 mb-4" key={blog.id}>
+                <Link to={`/blog/${blog.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <CardItem
                     title={blog.title}
                     author={blog.author}

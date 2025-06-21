@@ -16,6 +16,9 @@ function Profile() {
     }, []);
 
     const handleLogout = async () => {
+        if(!window.confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+            return;
+        }
         const { error } = await supabase.auth.signOut();
         if (error) {
             console.error('Error al cerrar sesión:', error.message);
