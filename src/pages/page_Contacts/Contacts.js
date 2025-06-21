@@ -1,8 +1,30 @@
+import React, { useRef } from "react";
 import "./Contacts.css";
 import { FaGithub } from "react-icons/fa";
-import { IoIosSettings, IoIosClock  } from "react-icons/io";
+import { IoIosSettings, IoIosClock } from "react-icons/io";
+import emailjs from 'emailjs-com';
 
 function Contacts() {
+    const formRef = useRef();
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+
+        emailjs.sendForm(
+            'service_dgbifeu',   // replace with your EmailJS service ID
+            'template_y7dblmf',  // replace with your EmailJS template ID
+            formRef.current,
+            'BPCIpdWXsn2thDvYb'  // replace with your EmailJS user/public key
+        )
+        .then((result) => {
+            console.log('Email successfully sent!', result.text);
+            alert('¡Mensaje enviado! Te responderemos pronto.');
+            formRef.current.reset();
+        }, (error) => {
+            console.error('Failed to send email:', error.text);
+            alert('Error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+        });
+    };
 
     return(
         <div>
@@ -163,8 +185,8 @@ function Contacts() {
                             <div className="accordion-body">
                             <ol>
                                 <li>Ve al apartado de "Crear Blogs".</li>
-                                <li>Busca la publicación que quieres modificar y haz clic en el botón de “Editar”</li>
-                                <li>Realiza los cambios en el editor y actualiza. Si deseas eliminarla, elige “Eliminar publicación” en las opciones y confirma la acción.</li>
+                                <li>Busca la publicación que quieres modificar y haz clic en el botón de “Editar” Realiza los cambios en el editor y actualiza.</li> 
+                                <li>Si deseas eliminarla, elige “Eliminar publicación” en las opciones y confirma la acción.</li>
                             </ol>
                             </div>
                         </div>
@@ -198,56 +220,58 @@ function Contacts() {
                     </div>
                     </div>
 
-                    {/* Columna del Formulario de Contacto */}
+                    {/* Contact Form */}
                     <div className="col-md-6">
                     <hr className="border-black w-25 border-3" />
-                    <form>
-                        <div className="mb-3">
-                        <label htmlFor="inputName" className="form-label">
-                            Nombre <span className="text-danger">*</span>
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control rounded-1"
-                            id="inputName"
-                            placeholder="Tu nombre"
-                            required
-                        />
-                        </div>
+                        <form ref={formRef} onSubmit={sendEmail}>
+                            <div className="mb-3">
+                            <label htmlFor="inputName" className="form-label">
+                                Nombre <span className="text-danger">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                name="user_name"
+                                className="form-control rounded-1"
+                                id="inputName"
+                                placeholder="Tu nombre"
+                                required
+                            />
+                            </div>
 
-                        <div className="mb-3">
-                        <label htmlFor="inputEmail" className="form-label">
-                            Email <span className="text-danger">*</span>
-                        </label>
-                        <input
-                            type="email"
-                            className="form-control rounded-1"
-                            id="inputEmail"
-                            placeholder="tu@correo.com"
-                            required
-                        />
-                        </div>
+                            <div className="mb-3">
+                            <label htmlFor="inputEmail" className="form-label">
+                                Email <span className="text-danger">*</span>
+                            </label>
+                            <input
+                                type="email"
+                                name="user_email"
+                                className="form-control rounded-1"
+                                id="inputEmail"
+                                placeholder="tu@correo.com"
+                                required
+                            />
+                            </div>
 
-                        <div className="mb-3">
-                        <label htmlFor="inputMessage" className="form-label">
-                            Comentario o mensaje <span className="text-danger">*</span>
-                        </label>
-                        <textarea
-                            className="form-control rounded-1"
-                            id="inputMessage"
-                            rows="6"
-                            placeholder="Escribe aquí tu mensaje..."
-                            required
-                        ></textarea>
-                        </div>
+                            <div className="mb-3">
+                            <label htmlFor="inputMessage" className="form-label">
+                                Comentario o mensaje <span className="text-danger">*</span>
+                            </label>
+                            <textarea
+                                name="message"
+                                className="form-control rounded-1"
+                                id="inputMessage"
+                                rows="6"
+                                placeholder="Escribe aquí tu mensaje..."
+                                required
+                            ></textarea>
+                            </div>
 
-                        <div className="d-grid gap-2 col-3 mx-auto">
+                            <div className="d-grid gap-2 col-3 mx-auto">
                             <button type="submit" className="btn btn-primary">
                                 Enviar
                             </button>
-                        </div>
-                        
-                    </form>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 </div>
