@@ -8,6 +8,7 @@ function Register () {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     // Redirigir a el inicio si ya ha iniciado sesión
@@ -21,18 +22,23 @@ function Register () {
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
+        setError(''); // Resetea el error antes de intentar registrar
         try {
         const res = await registerUser(email, password);
             alert("usuario registrado");
-            navigate("/login");
+            // navigate("/login");
         }catch (err){
-            alert("error al registrar");
-            console.log(err);
+            if(err.status === 400) {
+                setError("Email ya registrado o contraseña inválida");
+            } else {
+                setError("Ocurrió un error al registrar. Por favor, inténtalo de nuevo más tarde.");
+            }
+        }finally {
+            setEmail('');
+            setPassword('');
+            setIsLoading(false);
         }
-
-        // Limpio los campos
-        // setEmail('');
-        setPassword('');
     };
 
     const handleGoogleLogin = async() => {
@@ -72,9 +78,28 @@ function Register () {
                         </svg>
                         <input placeholder="Password" type="password" className="input_field" value={password} onChange={(e) => setPassword(e.target.value)} required />
                     </div>
-                    <button title="Crear cuenta" type="submit" className="sign-in_btn">
-                        <span>Crear cuenta</span>
+                    {/* Botón con spinner */}
+                    <button
+                        title="Crear cuenta"
+                        type="submit"
+                        className="sign-in_btn"
+                        disabled={isLoading}
+                    >
+                        {isLoading ? (
+                        <>
+                            <span
+                                className="spinner-border spinner-border-sm"
+                                role="status"
+                                aria-hidden="true"
+                            ></span>
+                            {' '}Creando...
+                        </>
+                        ) : (
+                            <span>Crear cuenta</span>
+                        )}
                     </button>
+
+          {error && <p className="text-danger mt-2">{error}</p>}
 
                     <p className="p">¿Ya tienes una cuenta? <Link to="/login" className='span'>Inicia Sesión</Link></p>
 

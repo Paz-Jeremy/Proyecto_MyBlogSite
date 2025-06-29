@@ -8,6 +8,7 @@ function Login () {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     // Redirigir a el inicio si ya ha iniciado sesión
@@ -21,13 +22,21 @@ function Login () {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
+        setError(''); // Resetea el error antes de intentar iniciar sesión
         try{
-        const res = await loginUser(email, password);
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-        navigate("/");
+            const res = await loginUser(email, password);
+            localStorage.setItem("user", JSON.stringify(res.data.user));
+            navigate("/");
         }catch (err){
-            alert("error al iniciar sesion");
-        console.log(err);
+            if(err.status === 401) {
+                setError("Email o Contraseña incorrecto")
+                setPassword('');
+            } else {
+                setError("Ocurrió un error al iniciar sesión. Por favor, inténtalo de nuevo más tarde.");
+            }
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -67,8 +76,24 @@ function Login () {
                     </svg>
                     <input placeholder="Password" type="password" className="input_field" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
-                <button title="Sign In" type="submit" className="sign-in_btn">
-                    <span>Inicia sesión</span>
+                <button
+                    title="Sign In"
+                    type="submit"
+                    className="sign-in_btn"
+                    disabled={isLoading}
+                >
+                    {isLoading ? (
+                    <>
+                        <span
+                            className="spinner-border spinner-border-sm"
+                            role="status"
+                            aria-hidden="true"
+                        ></span>
+                        {' '}Cargando...
+                    </>
+                    ) : (
+                        <span>Inicia sesión</span>
+                    )}
                 </button>
 
                 {error && <p className="text-danger mt-2">{error}</p>}

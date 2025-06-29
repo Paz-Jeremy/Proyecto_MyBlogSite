@@ -46,6 +46,8 @@ function Blogs( { blogs, setBlogs } ) {
 
   const [blogsByUser, setBlogsByUser] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   // cargar blogs del usuario al montar el componente y los asigna a blogsByUser
   useEffect(()=>{
           const fetchBlogsByUser = async () => {
@@ -105,6 +107,7 @@ function Blogs( { blogs, setBlogs } ) {
   // Manejador “Agregar” o “Actualizar” (al enviar el formulario)
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       let imageUrl = form.image_url;
       if (imageUrl instanceof File) {
@@ -139,6 +142,7 @@ function Blogs( { blogs, setBlogs } ) {
     } finally {
       resetForm();
       setEditIndex(null);
+      setIsLoading(false);
     }
   };
 
@@ -271,9 +275,16 @@ function Blogs( { blogs, setBlogs } ) {
         </div>
 
         <div className="d-grid gap-2 col-4 mx-auto">
-          <button className="btn btn-primary">
-            {editIndex !== null ? "Actualizar" : "Agregar"}
-          </button>
+          {isLoading ? (
+            <button className="btn btn-primary" type="button" disabled>
+              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              {' '}{editIndex !== null ? "Actualizando..." : "Agregando..."}
+            </button>
+          ) : (
+            <button className="btn btn-primary" type="submit">
+              {editIndex !== null ? "Actualizar" : "Agregar"}
+            </button>
+          )}
         </div>
       </form>
 

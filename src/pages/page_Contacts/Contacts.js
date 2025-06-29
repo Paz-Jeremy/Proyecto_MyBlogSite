@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./Contacts.css";
 import { FaGithub } from "react-icons/fa";
 import { IoIosSettings, IoIosClock } from "react-icons/io";
@@ -6,10 +6,11 @@ import emailjs from 'emailjs-com';
 
 function Contacts() {
     const formRef = useRef();
+    const [isLoading, setIsLoading] = useState(false);
 
     const sendEmail = (e) => {
         e.preventDefault();
-
+        setIsLoading(true);
         emailjs.sendForm(
             'service_dgbifeu',   // replace with your EmailJS service ID
             'template_y7dblmf',  // replace with your EmailJS template ID
@@ -23,6 +24,9 @@ function Contacts() {
         }, (error) => {
             console.error('Failed to send email:', error.text);
             alert('Error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+        })
+        .finally(() => {
+            setIsLoading(false);
         });
     };
 
@@ -267,9 +271,24 @@ function Contacts() {
                             </div>
 
                             <div className="d-grid gap-2 col-3 mx-auto">
-                            <button type="submit" className="btn btn-primary">
-                                Enviar
-                            </button>
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary"
+                                    disabled={isLoading}
+                                >
+                                    {isLoading ? (
+                                        <>
+                                            <span
+                                                className="spinner-border spinner-border-sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                            ></span>
+                                            {' '}Enviando...
+                                        </>
+                                    ) : (
+                                        'Enviar'
+                                    )}
+                                </button>
                             </div>
                         </form>
                     </div>
