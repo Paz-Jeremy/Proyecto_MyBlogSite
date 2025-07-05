@@ -1,5 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import "./Blogs.css";
+import { Toaster, toast } from 'sonner'
+import { FaRegEdit } from "react-icons/fa";
+import { MdDeleteSweep } from "react-icons/md";
+import React from "react";
 
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
@@ -30,7 +34,7 @@ const uploadImage = async (file, bucket = BUCKET, folder = 'images') => {
   return urlData.publicUrl;
 };
 
-function Blogs( { blogs, setBlogs } ) {
+function Blogs( { setBlogs } ) {
   const editorRef = useRef(null);
   const [form, setForm] = useState({
     image_url: null,
@@ -55,9 +59,10 @@ function Blogs( { blogs, setBlogs } ) {
                 const userId = JSON.parse(localStorage.getItem("user")).id;
                 const { data } = await getBlogByUser(userId);
                 setBlogsByUser(data);
-                console.log("Blogs del usuario:", data);
             } catch (err) {
-                console.log("Error al obtener blogs del usuario:", err);
+                toast.error('Error al cargar tus blogs', {
+                  description:'Ocurrió un error, acualiza la página o intentalo más tarde.'
+                });
             }
           }
           fetchBlogsByUser();
@@ -93,14 +98,18 @@ function Blogs( { blogs, setBlogs } ) {
       const updated = blogsByUser.filter((_, i) => i !== index);
       setBlogsByUser(updated); // Actualiza el estado local de blogsByUser
       setBlogs(prev => prev.filter(b => b.id !== blogsByUser[index].id)); // ← actualiza el global
-      alert("Blog eliminado exitosamente");
+      toast.success('Blog eliminado exitosamente', {
+        description: `El blog "${blogsByUser[index].title}" ha sido eliminado.`,
+        icon: <MdDeleteSweep size={20}/>
+      });
       if (editIndex === index) {
         setEditIndex(null);
         resetForm();
       }
     } catch (err) {
-      console.error("Error al eliminar blog:", err);
-      alert("Error al eliminar el blog. Revisa la consola.");
+      toast.error('Error al eliminar el blog', {
+        description: 'Ocurrió un error al intentar eliminar el blog. Por favor, inténtalo de nuevo más tarde.'
+      });
     }
   };
 
@@ -118,27 +127,32 @@ function Blogs( { blogs, setBlogs } ) {
       if (editIndex !== null) {
         // Modo edición
         const { data } = await updateBlogs(blogsByUser[editIndex].id, payload);
-        console.log("Blog actualizado:", data);
         const updated = [...blogsByUser];
-        updated[editIndex] = payload;
+        updated[editIndex] = data.data;
         setBlogsByUser(updated);
         setBlogs(prev =>
           prev.map(b => (b.id === payload.id ? payload : b))
         );
-        alert("Blog actualizado exitosamente");
+        // alert("Blog actualizado exitosamente");
+        toast.success('Blog actualizado exitosamente', {
+          icon: <FaRegEdit size={20}/>,
+          description: `El blog "${payload.title}" ha sido actualizado.`
+        });
       } else {
         // Modo creación
         const response = await createNewBlogs(payload);
         const newBlog = Array.isArray(response.data?.data) ? response.data.data[0] : response.data;
-        console.log("Blog creado:", newBlog);
         setBlogsByUser([...blogsByUser, newBlog]); // Agrega el nuevo blog al estado local
         setBlogs(prev => [...prev, newBlog]); // Actualiza el estado global de blogs
-        alert("Blog agregado exitosamente");
+        toast.success('Blog agregado exitosamente', {
+          description: `El blog "${newBlog.title}" ha sido agregado.`,
+        });
         editorRef.current.setContents(""); // Limpiar el editor
       }
     } catch (error) {
-      console.error("Error en envío de blog:", error);
-      alert("Hubo un error al subir la imagen o crear el blog. Revisa la consola.");
+      toast.error('Error al procesar el blog', {
+        description: 'Ocurrió un error al intentar agregar o actualizar el blog. Por favor, inténtalo de nuevo más tarde.'
+      });
     } finally {
       resetForm();
       setEditIndex(null);
@@ -159,6 +173,7 @@ function Blogs( { blogs, setBlogs } ) {
 
   return (
     <div style={{ padding: "20px 40px" }}>
+      <Toaster position="top-center" theme="dark" />
       <h2>Gestión de Blogs</h2>
 
       <form onSubmit={handleOnSubmit} className="mb-4 form-Blogs">
